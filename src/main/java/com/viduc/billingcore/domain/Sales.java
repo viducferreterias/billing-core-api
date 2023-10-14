@@ -3,13 +3,17 @@ package com.viduc.billingcore.domain;
 import com.viduc.billingcore.domain.view.ElectronicBillingSummaryView;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.LazyToOne;
+import org.hibernate.annotations.LazyToOneOption;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Getter
 @Setter
-@AllArgsConstructor
+//@AllArgsConstructor
 @NoArgsConstructor
 @ToString
 @Entity
@@ -52,6 +56,12 @@ public class Sales implements Serializable {
     @Column(name = "observacion_1")
     private String comment1;
 
+    @Column(name = "observacion")
+    private String comment2;
+
+    @Column(name = "txt_envios")
+    private String comment3;
+
     @Column(name = "observacion_especial")
     private String specialComment;
 
@@ -70,8 +80,11 @@ public class Sales implements Serializable {
     @Column(name = "motivo_contingencia")
     private String contingencyReason;
 
-    /*@Column(name = "iva")
-    private Integer taxType;
+    @Column(name = "sello_recepcion_electronico")
+    private String electronicReceiptSale;
+
+    @Column(name = "iva")
+    private Float iva;
 
     @Column(name = "sub_total")
     private Float subtotal;
@@ -80,9 +93,18 @@ public class Sales implements Serializable {
     private Float perception;
 
     @Column(name = "fovial")
-    private Float retention;*/
+    private Float retention;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @Column(name = "codigo_proveedor")
+    private String providerCode;
+
+    @Column(name = "numero_pedido")
+    private String relatedInvoiceNumber;
+
+    @Column(name = "impresion")
+    private Integer impression;
+
+    @ManyToOne(fetch = FetchType.LAZY , cascade = CascadeType.ALL)
     @JoinColumn(name = "cod_cliente" , insertable = false , updatable = false)
     @ToString.Exclude
     private Client client;
@@ -92,17 +114,23 @@ public class Sales implements Serializable {
     @ToString.Exclude
     private Company company;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY , optional = false)
+    //@LazyToOne(LazyToOneOption.NO_PROXY)
     @JoinColumns({
-            @JoinColumn(name = "cod_cia" , referencedColumnName = "empresa_id"),
-            @JoinColumn(name = "cod_sucursal" , referencedColumnName = "codigo_sucursal"),
-            @JoinColumn(name = "cod_doctoc" , referencedColumnName = "tipo_documento"),
-            @JoinColumn(name = "num_docto" , referencedColumnName = "numero_documento")
+            @JoinColumn(name = "cod_cia" , referencedColumnName = "empresa_id" , insertable = false , updatable = false),
+            @JoinColumn(name = "cod_sucursal" , referencedColumnName = "codigo_sucursal", insertable = false , updatable = false),
+            @JoinColumn(name = "cod_doctoc" , referencedColumnName = "tipo_documento", insertable = false , updatable = false),
+            @JoinColumn(name = "num_docto" , referencedColumnName = "numero_documento", insertable = false , updatable = false),
     })
     private ElectronicBillingSummaryView electronicBillingSummary;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cod_sucursal" , referencedColumnName = "cod_sucursal" , insertable = false , updatable = false)
     private PointSale pointSale;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "codigo_proveedor" , referencedColumnName = "cod_prov" , insertable = false , updatable = false)
+    @ToString.Exclude
+    private Supplier supplier;
 
 }

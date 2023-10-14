@@ -13,6 +13,7 @@ import jakarta.ejb.Stateless;
 import jakarta.transaction.Transactional;
 import lombok.extern.java.Log;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Log
@@ -25,11 +26,14 @@ public class DteTaxReceiptImpl implements IDteProcessor {
 
         var baseData = (Sales) data;
         var jsonMapper = new ObjectMapper();
+        var appendixList = new ArrayList<DteAppendixDto>();
 
         var identification = IDteIdentificationMapper.INSTANCE.identificationToIdentificationDto(baseData);
         var transmitter = IDteTransmitterMapper.INSTANCE.transmitterDataToDto(baseData);
         var receiver = IDteReceiverMapper.INSTANCE.toDteTaxReceiptDto(baseData);
         var summary = IDteSummaryMapper.INSTANCE.toDteSummaryTaxReceiptDto(baseData , payment);
+
+        appendixList.add(DteAppendixDto.builder().label("numeroDocumentoInterno").field("Numero Documento").value(baseData.getPointSale().getId().toString().concat("-").concat(baseData.getId().getDocumentNumber().toString())).build());
 
         var dte = DteSchemaTaxReceiptResponseDto.builder()
                                         .identification(identification)
@@ -37,6 +41,7 @@ public class DteTaxReceiptImpl implements IDteProcessor {
                                         .receiver(receiver)
                                         .body(body)
                                         .summary(summary)
+                                        .appendix(appendixList)
                                         .build();
 
         log.info("DTE: " + jsonMapper.writerWithDefaultPrettyPrinter().writeValueAsString(dte));

@@ -1,6 +1,8 @@
 package com.viduc.billingcore.repository.configuration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.viduc.billingcore.dto.response.DteApiProcessingResultResponseDte;
+import com.viduc.billingcore.repository.sale.DteGeneratorRepository;
 import jakarta.ejb.Singleton;
 import jakarta.ejb.Stateless;
 import jakarta.inject.Inject;
@@ -59,10 +61,11 @@ public class DteApiRepository {
 
     }
 
-    public void send(String dte) throws Exception {
+    public DteApiProcessingResultResponseDte send(String dte) throws Exception {
 
         var client = HttpClient.newHttpClient();
         var token = globalVariable.getToken();
+        var jsonMapper = new ObjectMapper();
 
 
         if (globalVariable.getToken() == null) {
@@ -80,7 +83,10 @@ public class DteApiRepository {
                 .build();
 
         var response = client.sendAsync(request , HttpResponse.BodyHandlers.ofString()).get(5 , TimeUnit.MINUTES);
+
         log.info(response.body());
+
+        return jsonMapper.readValue(response.body() , DteApiProcessingResultResponseDte.class);
 
     }
 

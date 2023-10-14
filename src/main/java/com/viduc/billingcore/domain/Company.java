@@ -60,18 +60,18 @@ public class Company implements Serializable {
     @ToString.Exclude
     private List<Sales> sales;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumnsOrFormulas({
             @JoinColumnOrFormula(column = @JoinColumn(name = "codigo_departamento" , referencedColumnName = "cod_depto" , updatable = false , insertable = false)),
-            @JoinColumnOrFormula(formula = @JoinFormula(value = "1" , referencedColumnName = "cod_pais"))
+            @JoinColumnOrFormula(formula = @JoinFormula(value = "1" , referencedColumnName = "cod_pais")),
     })
     private Department department;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumnsOrFormulas({
             @JoinColumnOrFormula(column = @JoinColumn(name = "codigo_departamento" , referencedColumnName = "cod_depto" , updatable = false , insertable = false)),
             @JoinColumnOrFormula(column = @JoinColumn(name = "codigo_municipio" , referencedColumnName = "cod_muni" , updatable = false , insertable = false)),
-            @JoinColumnOrFormula(formula = @JoinFormula(value = "1" , referencedColumnName = "cod_pais"))
+            @JoinColumnOrFormula(formula = @JoinFormula(value = "1" , referencedColumnName = "cod_pais")),
     })
     private Municipality municipality;
 

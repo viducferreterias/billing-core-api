@@ -8,6 +8,7 @@ import com.viduc.billingcore.dto.components.DtePaymentsDto;
 import com.viduc.billingcore.dto.components.InventoryMovementDetailDto;
 import com.viduc.billingcore.dto.components.InventoryMovementDto;
 import com.viduc.billingcore.dto.request.sales.DteRequestDto;
+import com.viduc.billingcore.dto.response.DteApiProcessingResultResponseDte;
 import com.viduc.billingcore.mapper.sale.IDteBodyMapper;
 import com.viduc.billingcore.mapper.sale.IDtePaymentMapper;
 import com.viduc.billingcore.repository.configuration.ConfigurationRepository;
@@ -79,6 +80,7 @@ public class DteGeneratorRepository {
         var dte = new Object();
         var jsonMapper = new ObjectMapper();
         var data = new Object();
+        var dteProcessingResult = new DteApiProcessingResultResponseDte();
 
         if (request.getWarehouseOrigin() == null) {
             data = dteSalesBaseData(request);
@@ -86,30 +88,36 @@ public class DteGeneratorRepository {
             data = dteInventoryBaseData(request);
         }
 
-
         if (request.getDocumentType().equals(2)) {
             dte = dteProcessorFiscalCredit.generate(data , dtePaymentData(request) , dteBodySalesData(request));
-            dteApiRepository.send(jsonMapper.writeValueAsString(dte));
+            dteProcessingResult = dteApiRepository.send(jsonMapper.writeValueAsString(dte));
         } else if (request.getDocumentType().equals(12) || request.getDocumentType().equals(13)) {
             dte = dteProcessorBill.generate(data , dtePaymentData(request) , dteBodySalesData(request));
-            dteApiRepository.send(jsonMapper.writeValueAsString(dte));
+            dteProcessingResult = dteApiRepository.send(jsonMapper.writeValueAsString(dte));
         } else if (request.getDocumentType().equals(17)) {
             dte = dteProcessorExport.generate(data , dtePaymentData(request) , dteBodySalesData(request));
-            dteApiRepository.send(jsonMapper.writeValueAsString(dte));
+            dteProcessingResult = dteApiRepository.send(jsonMapper.writeValueAsString(dte));
         } else if (request.getDocumentType().equals(14)) {
             dte = dteProcessorCreditNote.generate(data , null , dteBodySalesData(request));
-            dteApiRepository.send(jsonMapper.writeValueAsString(dte));
+            dteProcessingResult = dteApiRepository.send(jsonMapper.writeValueAsString(dte));
         } else if (request.getDocumentType().equals(16)) {
             dte = dteProcessorDebitNote.generate(data , null , dteBodySalesData(request));
-            dteApiRepository.send(jsonMapper.writeValueAsString(dte));
+            dteProcessingResult = dteApiRepository.send(jsonMapper.writeValueAsString(dte));
         } else if (request.getDocumentType().equals(11)) {
             dte = dteProcessorDeliveryNote.generate(data , null , dteBodyInventoryData(request));
-            dteApiRepository.send(jsonMapper.writeValueAsString(dte));
+            dteProcessingResult = dteApiRepository.send(jsonMapper.writeValueAsString(dte));
+        } else if (request.getDocumentType().equals(20)) {
+            log.info("");
         } else {
             dte = null;
         }
 
-        return dte;
+        if (!dteProcessingResult.getReceptionStamp().isBlank()) {
+            stampDocument(request , dteProcessingResult);
+        }
+
+
+        return dteProcessingResult;
 
     }
 
@@ -118,16 +126,25 @@ public class DteGeneratorRepository {
         var builder = em.getCriteriaBuilder();
         var criteria = builder.createQuery(Sales.class);
         var sale = criteria.from(Sales.class);
-        var client = sale.fetch(Sales_.client);
         var company = sale.fetch(Sales_.company);
-        var saleSummary = sale.fetch(Sales_.electronicBillingSummary);
+        var companyDepartment = company.fetch(Company_.department);
+        var companyMunicipality = company.fetch(Company_.municipality);
         var pointSale = sale.fetch(Sales_.pointSale);
-        var clientDepartment = client.fetch(Client_.department , JoinType.LEFT);
-        var clientMunicipality = client.fetch(Client_.municipality , JoinType.LEFT);
-        var clientCountry = client.fetch(Client_.country , JoinType.LEFT);
-        var pointSaleDepartment = pointSale.fetch(PointSale_.department);
-        var pointSaleMunicipality = pointSale.fetch(PointSale_.municipality);
-        var electronicSummary = sale.fetch(Sales_.electronicBillingSummary);
+        var pointSaleDepartment = pointSale.fetch(PointSale_.department , JoinType.LEFT);
+        var pointSaleMunicipality = pointSale.fetch(PointSale_.municipality , JoinType.LEFT);
+
+        if (!request.getDocumentType().equals(20)) {
+            var client = sale.fetch(Sales_.client);
+            var clientDepartment = client.fetch(Client_.department , JoinType.LEFT);
+            var clientMunicipality = client.fetch(Client_.municipality , JoinType.LEFT);
+            var clientCountry = client.fetch(Client_.country , JoinType.LEFT);
+            var electronicSummary = sale.fetch(Sales_.electronicBillingSummary  , JoinType.LEFT);
+        } else {
+            var supplier = sale.fetch(Sales_.supplier , JoinType.LEFT);
+            var supplierCountry = supplier.fetch(Supplier_.country , JoinType.LEFT);
+            var supplierDepartment = supplier.fetch(Supplier_.department , JoinType.LEFT);
+            var supplierMunicipality = supplier.fetch(Supplier_.municipality , JoinType.LEFT);
+        }
 
         criteria.where(builder.equal(sale.get(Sales_.id).get(SalesPrimaryKey_.pointSaleCode) , request.getPosId()) ,
                 builder.equal(sale.get(Sales_.id).get(SalesPrimaryKey_.documentTypeCode) , request.getDocumentType()) ,
@@ -189,7 +206,7 @@ public class DteGeneratorRepository {
                 detail.get(InventoryMovementDetail_.description),
                 builder.coalesce(presentation.get(Presentation_.idPresentationMh) , builder.literal("99")),
                 detail.get(InventoryMovementDetail_.id).get(InventoryMovementDetailPrimaryKey_.sequence),
-                product.get(Product_.type),
+                builder.coalesce(product.get(Product_.type) , 1),
                 detail.get(InventoryMovementDetail_.quantity),
                 detail.get(InventoryMovementDetail_.cost),
                 detail.get(InventoryMovementDetail_.total)));
@@ -251,6 +268,44 @@ public class DteGeneratorRepository {
 
 
         return em.createQuery(criteria).getSingleResult();
+    }
+
+    private void stampDocument(DteRequestDto request , DteApiProcessingResultResponseDte dteResult) {
+
+        var builder = em.getCriteriaBuilder();
+
+        if (request.getDocumentType().equals(2) || request.getDocumentType().equals(12) || request.getDocumentType().equals(13) || request.getDocumentType().equals(17) || request.getDocumentType().equals(14) || request.getDocumentType().equals(16)) {
+
+            var criteria = builder.createCriteriaUpdate(Sales.class);
+            var sale = criteria.from(Sales.class);
+
+            criteria.set(sale.get(Sales_.electronicReceiptSale) , dteResult.getReceptionStamp());
+            criteria.where(builder.equal(sale.get(Sales_.id).get(SalesPrimaryKey_.companyId) , request.getCompanyId()),
+                    builder.equal(sale.get(Sales_.id).get(SalesPrimaryKey_.documentTypeCode) , request.getDocumentType()),
+                    builder.equal(sale.get(Sales_.id).get(SalesPrimaryKey_.pointSaleCode) , request.getPosId()),
+                    builder.equal(sale.get(Sales_.id).get(SalesPrimaryKey_.documentNumber) , request.getDocumentNumber()),
+                    builder.equal(sale.get(Sales_.documentDate) , request.getDate()),
+                    builder.isNull(sale.get(Sales_.electronicReceiptSale)));
+
+            em.createQuery(criteria).executeUpdate();
+
+        } else {
+
+            var criteria = builder.createCriteriaUpdate(InventoryMovement.class);
+            var inventory = criteria.from(InventoryMovement.class);
+
+            criteria.set(inventory.get(InventoryMovement_.electronicReceiptSale) , dteResult.getReceptionStamp());
+            criteria.where(builder.equal(inventory.get(InventoryMovement_.id).get(InventoryMovementPrimaryKey_.companyId) , request.getCompanyId()),
+                    builder.equal(inventory.get(InventoryMovement_.id).get(InventoryMovementPrimaryKey_.number) , request.getDocumentNumber()),
+                    builder.equal(inventory.get(InventoryMovement_.id).get(InventoryMovementPrimaryKey_.warehouse), request.getWarehouseOrigin()),
+                    builder.equal(inventory.get(InventoryMovement_.id).get(InventoryMovementPrimaryKey_.type) , request.getDocumentType()),
+                    builder.isNull(inventory.get(InventoryMovement_.electronicReceiptSale)));
+
+            em.createQuery(criteria).executeUpdate();
+
+        }
+
+
     }
 
     public DteGeneratorRepository() {

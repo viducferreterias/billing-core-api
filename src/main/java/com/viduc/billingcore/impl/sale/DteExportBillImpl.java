@@ -2,6 +2,7 @@ package com.viduc.billingcore.impl.sale;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.viduc.billingcore.domain.Sales;
+import com.viduc.billingcore.dto.components.DteAppendixDto;
 import com.viduc.billingcore.dto.components.DteDocumentBodyDto;
 import com.viduc.billingcore.dto.components.DtePaymentsDto;
 import com.viduc.billingcore.dto.components.DteRelatedDocumentsDto;
@@ -30,11 +31,14 @@ public class DteExportBillImpl implements IDteProcessor {
 
         var baseData = (Sales) data;
         var jsonMapper = new ObjectMapper();
+        var appendixList = new ArrayList<DteAppendixDto>();
 
         var identification = IDteIdentificationMapper.INSTANCE.identificationToIdentificationDto(baseData);
         var transmitter = IDteTransmitterMapper.INSTANCE.toDteTransmitterExportBillDto(baseData);
         var receiver = IDteReceiverMapper.INSTANCE.toDteExportSaleDto(baseData);
         var summary = IDteSummaryMapper.INSTANCE.toDteSummaryExportSaleDocumentDto(baseData , payment);
+
+        appendixList.add(DteAppendixDto.builder().label("numeroDocumentoInterno").field("Numero Documento").value(baseData.getPointSale().getId().toString().concat("-").concat(baseData.getId().getDocumentNumber().toString())).build());
 
         var dte = DteSchemaCreditNoteResponseDto.builder()
                 .identification(identification)
@@ -42,6 +46,7 @@ public class DteExportBillImpl implements IDteProcessor {
                 .receiver(receiver)
                 .body(body)
                 .summary(summary)
+                .appendix(appendixList)
                 .build();
 
         log.info("DTE: " + jsonMapper.writerWithDefaultPrettyPrinter().writeValueAsString(dte));

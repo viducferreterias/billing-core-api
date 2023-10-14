@@ -44,6 +44,9 @@ public class InventoryMovement implements Serializable {
     @Column(name = "motivo_contingencia")
     private String contingencyReason;
 
+    @Column(name = "sello_recepcion_electronico")
+    private String electronicReceiptSale;
+
     @Column(name = "total")
     private Float total;
 

@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 @StaticMetamodel(ElectronicBillingSummaryView.class)
 public class ElectronicBillingSummaryView_ {
 
-    public static volatile SingularAttribute<ElectronicBillingSummaryView , ElectronicBillingSummaryView> id;
+    public static volatile SingularAttribute<ElectronicBillingSummaryView , ElectronicBillingSummaryViewPrimaryKey> id;
     public static volatile SingularAttribute<ElectronicBillingSummaryView , LocalDateTime> documentDate;
     public static volatile SingularAttribute<ElectronicBillingSummaryView , Integer> taxType;
     public static volatile SingularAttribute<ElectronicBillingSummaryView , Float> fullyExempt;

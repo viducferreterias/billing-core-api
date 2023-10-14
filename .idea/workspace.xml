@@ -10,24 +10,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f447e09b-85df-46cb-93d3-5f4c8c04f5d6" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/jpa-buddy.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.mvn/wrapper/maven-wrapper.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.mvn/wrapper/maven-wrapper.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mvnw" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mvnw.cmd" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/dto/components/DteIdentificationDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/service/ApplicationConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/service/HelloResource.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/META-INF/beans.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/META-INF/persistence.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jboss-web.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/domain/Company.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/domain/Company.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/domain/InventoryMovement.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/domain/InventoryMovement.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/domain/InventoryMovement_.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/domain/InventoryMovement_.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/domain/Sales.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/domain/Sales.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/domain/Sales_.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/domain/Sales_.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/domain/view/ElectronicBillingSummaryView_.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/domain/view/ElectronicBillingSummaryView_.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/impl/sale/DteBillImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/impl/sale/DteBillImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/impl/sale/DteCreditNoteImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/impl/sale/DteCreditNoteImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/impl/sale/DteDebitNoteImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/impl/sale/DteDebitNoteImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/impl/sale/DteExportBillImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/impl/sale/DteExportBillImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/impl/sale/DteTaxReceiptImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/impl/sale/DteTaxReceiptImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/mapper/sale/IDteReceiverMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/mapper/sale/IDteReceiverMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/mapper/sale/IDteTransmitterMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/mapper/sale/IDteTransmitterMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/repository/configuration/DteApiRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/repository/configuration/DteApiRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/repository/sale/DteGeneratorRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/repository/sale/DteGeneratorRepository.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,8 +37,8 @@
       <list>
         <option value="Enum" />
         <option value="AnnotationType" />
-        <option value="Class" />
         <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -87,12 +85,177 @@
   }
 }</component>
   <component name="RunManager" selected="JBoss/WildFly Server.JBoss/WildFly 28.0.1.Final">
-    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
-      <option name="TEST_OBJECT" value="CLASS" />
-      <properties />
-      <listeners />
+    <configuration default="true" type="JBossConfiguration" factoryName="Local" ALTERNATIVE_JRE_ENABLED="false">
+      <deployment />
+      <server-settings>
+        <option name="SERVER" value="" />
+        <option name="BINDING_SET_NAME" value="" />
+        <option name="DOMAIN" value="false" />
+        <option name="SERVER_GROUP" value="" />
+        <option name="USERNAME" value="" />
+      </server-settings>
+      <predefined_log_file enabled="true" id="JBoss" />
+      <RunnerSettings RunnerId="Debug">
+        <option name="DEBUG_PORT" value="42473" />
+      </RunnerSettings>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Cover">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Debug">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Run">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
       <method v="2">
         <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="JBoss/WildFly 28.0.1.Final" type="JBossConfiguration" factoryName="Local" APPLICATION_SERVER_NAME="JBoss/WildFly 28.0.1.Final" ALTERNATIVE_JRE_ENABLED="false" nameIsGenerated="true">
+      <option name="OPEN_IN_BROWSER" value="false" />
+      <option name="UPDATING_POLICY" value="restart-server" />
+      <deployment>
+        <artifact name="billing-core:war">
+          <settings />
+        </artifact>
+      </deployment>
+      <server-settings>
+        <option name="SERVER" />
+        <option name="BINDING_SET_NAME" value="" />
+        <option name="DOMAIN" value="false" />
+        <option name="SERVER_GROUP" value="main-server-group" />
+        <option name="USERNAME" value="" />
+        <option name="CREDENTIAL_ALIAS" />
+      </server-settings>
+      <predefined_log_file enabled="true" id="JBoss" />
+      <RunnerSettings RunnerId="Debug">
+        <option name="DEBUG_PORT" value="42473" />
+      </RunnerSettings>
+      <RunnerSettings RunnerId="Debug with VisualVM">
+        <option name="DEBUG_PORT" value="46439" />
+      </RunnerSettings>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Cover">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Debug">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Debug with VisualVM">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Run">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Run with VisualVM">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <method v="2">
+        <option name="Make" enabled="true" />
+        <option name="BuildArtifacts" enabled="true">
+          <artifact name="billing-core:war" />
+        </option>
       </method>
     </configuration>
     <configuration name="JBoss/WildFly 28.0.1.Final" type="JBossConfiguration" factoryName="Local" APPLICATION_SERVER_NAME="JBoss/WildFly 28.0.1.Final" ALTERNATIVE_JRE_ENABLED="false" nameIsGenerated="true">
@@ -278,6 +441,22 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="DteGeneratorIT.testSomething" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="billing-core" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="repository.util.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="repository.util" />
+      <option name="MAIN_CLASS_NAME" value="repository.util.DteGeneratorIT" />
+      <option name="METHOD_NAME" value="testSomething" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <list>
       <item itemvalue="JBoss/WildFly Server.JBoss/WildFly 28.0.1.Final" />
       <item itemvalue="JUnit.DteGeneratorIT.testSomething" />
@@ -350,7 +529,13 @@
       <workItem from="1695658332935" duration="12865000" />
       <workItem from="1695702389658" duration="2330000" />
       <workItem from="1695749175983" duration="10593000" />
-      <workItem from="1695788837904" duration="7646000" />
+      <workItem from="1695788837904" duration="7942000" />
+      <workItem from="1695839047990" duration="2119000" />
+      <workItem from="1695922607565" duration="8676000" />
+      <workItem from="1696002447966" duration="11255000" />
+      <workItem from="1696266247203" duration="1253000" />
+      <workItem from="1696973048406" duration="2549000" />
+      <workItem from="1697038374763" duration="42420000" />
     </task>
     <servers />
   </component>

@@ -20,6 +20,8 @@ public class InventoryMovement_ {
     public static volatile SingularAttribute<InventoryMovement ,Integer> transmissionType;
     public static volatile SingularAttribute<InventoryMovement ,Integer> contingencyType;
     public static volatile SingularAttribute<InventoryMovement ,String> contingencyReason;
+
+    public static volatile SingularAttribute<InventoryMovement , String> electronicReceiptSale;
     public static volatile SingularAttribute<InventoryMovement ,Float> total;
     public static volatile SingularAttribute<InventoryMovement ,Float> subtotal;
     public static volatile SingularAttribute<InventoryMovement ,Integer> destinationWarehouse;

@@ -32,5 +32,18 @@ public class Sales_ {
     public static volatile SingularAttribute<Sales , Integer> transmissionType;
     public static volatile SingularAttribute<Sales , Integer> contingencyType;
     public static volatile SingularAttribute<Sales , String> contingencyReason;
+    public static volatile SingularAttribute<Sales , String> electronicReceiptSale;
+    public static volatile SingularAttribute<Sales , String> comment2;
+    public static volatile SingularAttribute<Sales , String> comment3;
+    public static volatile SingularAttribute<Sales , Float> iva;
+
+    public static volatile SingularAttribute<Sales , Float> subtotal;
+    public static volatile SingularAttribute<Sales , Float> perception;
+    public static volatile SingularAttribute<Sales , Float> retention;
+    public static volatile SingularAttribute<Sales , String> providerCode;
+    public static volatile SingularAttribute<Sales , String> relatedInvoiceNumber;
+    public static volatile SingularAttribute<Sales , Integer> impression;
+    public static volatile SingularAttribute<Sales , Supplier> supplier;
+
     
 }
