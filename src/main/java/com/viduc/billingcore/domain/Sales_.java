@@ -5,6 +5,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.metamodel.SingularAttribute;
 import jakarta.persistence.metamodel.StaticMetamodel;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @StaticMetamodel(Sales.class)
@@ -44,6 +45,7 @@ public class Sales_ {
     public static volatile SingularAttribute<Sales , String> relatedInvoiceNumber;
     public static volatile SingularAttribute<Sales , Integer> impression;
     public static volatile SingularAttribute<Sales , Supplier> supplier;
+    public static volatile SingularAttribute<Sales , LocalDate> referenceDate;
 
     
 }

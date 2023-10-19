@@ -1,9 +1,7 @@
 package com.viduc.billingcore.domain.view;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.EmbeddedId;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import com.viduc.billingcore.domain.Sales;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.io.Serializable;
@@ -13,7 +11,6 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
 @Entity
 @Table(name = "v_cfe_factur_resumen_documento")
 public class ElectronicBillingSummaryView implements Serializable {

@@ -18,34 +18,7 @@ public class DteIdentificationDto {
     @JsonProperty(value = "ambiente")
     private String destinationEnvironment;
 
-    @JsonProperty("tipoDte")
-    private String dteType;
-
-    @JsonProperty("numeroControl")
-    private String controlNumber;
-
     @JsonProperty("codigoGeneracion")
     private String generationCode;
-
-    @JsonProperty(value = "tipoModelo")
-    private Integer billingModel;
-
-    @JsonProperty(value = "tipoOperacion")
-    private Integer transmissionType;
-
-    @JsonProperty(value = "tipoContingencia")
-    private Integer contingencyType;
-
-    @JsonProperty(value = "motivoContin")
-    private String contingencyReason;
-
-    @JsonProperty("fecEmi")
-    private String dateIssuedOn;
-
-    @JsonProperty("horEmi")
-    private String hourIssuedOn;
-
-    @JsonProperty("tipoMoneda")
-    private String coinType;
 
 }

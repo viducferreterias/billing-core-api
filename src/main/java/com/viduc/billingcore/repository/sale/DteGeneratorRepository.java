@@ -64,6 +64,10 @@ public class DteGeneratorRepository {
     private IDteProcessor dteProcessorDeliveryNote;
 
     @Inject
+    @TypeElectronicDocument(DocumentType.WITHHOLDING_RECEIPT)
+    private IDteProcessor dteProcessorWithholdingReceipt;
+
+    @Inject
     private IDtePaymentMapper dtePaymentMapper;
 
     @Inject
@@ -107,7 +111,8 @@ public class DteGeneratorRepository {
             dte = dteProcessorDeliveryNote.generate(data , null , dteBodyInventoryData(request));
             dteProcessingResult = dteApiRepository.send(jsonMapper.writeValueAsString(dte));
         } else if (request.getDocumentType().equals(20)) {
-            log.info("");
+            dte = dteProcessorWithholdingReceipt.generate(data , null , null);
+            dteProcessingResult = dteApiRepository.send(jsonMapper.writeValueAsString(dte));
         } else {
             dte = null;
         }
@@ -144,7 +149,9 @@ public class DteGeneratorRepository {
             var supplierCountry = supplier.fetch(Supplier_.country , JoinType.LEFT);
             var supplierDepartment = supplier.fetch(Supplier_.department , JoinType.LEFT);
             var supplierMunicipality = supplier.fetch(Supplier_.municipality , JoinType.LEFT);
+            var summary = sale.fetch(Sales_.electronicBillingSummary , JoinType.LEFT);
         }
+
 
         criteria.where(builder.equal(sale.get(Sales_.id).get(SalesPrimaryKey_.pointSaleCode) , request.getPosId()) ,
                 builder.equal(sale.get(Sales_.id).get(SalesPrimaryKey_.documentTypeCode) , request.getDocumentType()) ,
@@ -153,7 +160,7 @@ public class DteGeneratorRepository {
                 builder.equal(sale.get(Sales_.documentDate) , request.getDate()),
                 builder.equal(sale.get(Sales_.state) , "G"));
 
-        return em.createQuery(criteria).getSingleResult();
+        return  em.createQuery(criteria).getSingleResult();
 
     }
 
@@ -274,7 +281,7 @@ public class DteGeneratorRepository {
 
         var builder = em.getCriteriaBuilder();
 
-        if (request.getDocumentType().equals(2) || request.getDocumentType().equals(12) || request.getDocumentType().equals(13) || request.getDocumentType().equals(17) || request.getDocumentType().equals(14) || request.getDocumentType().equals(16)) {
+        if (request.getDocumentType().equals(2) || request.getDocumentType().equals(12) || request.getDocumentType().equals(13) || request.getDocumentType().equals(17) || request.getDocumentType().equals(14) || request.getDocumentType().equals(16) || request.getDocumentType().equals(20)) {
 
             var criteria = builder.createCriteriaUpdate(Sales.class);
             var sale = criteria.from(Sales.class);

@@ -56,6 +56,9 @@ public class PointSale implements Serializable {
     @Column(name = "codigo_municipio")
     private Integer municipalityCode;
 
+    @Column(name = "impresora")
+    private String printer;
+
     @Column(name = "cod_cia")
     private Integer companyId;
 

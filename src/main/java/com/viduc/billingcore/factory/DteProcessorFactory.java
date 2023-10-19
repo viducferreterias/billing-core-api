@@ -49,4 +49,10 @@ public class DteProcessorFactory implements Serializable {
         return new DteDeliveryNoteImpl();
     }
 
+    @Produces
+    @TypeElectronicDocument(DocumentType.WITHHOLDING_RECEIPT)
+    public IDteProcessor getWithholdingReceiptDte() {
+        return new DteWithholdingReceiptImpl();
+    }
+
 }

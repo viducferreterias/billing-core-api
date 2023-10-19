@@ -41,6 +41,13 @@ public interface IDteSummaryMapper {
     DteSummaryTaxReceiptSaleDto toDteSummaryTaxReceiptDto(Sales data , List<DtePaymentsDto> paymentData);
 
     @Mappings({
+            @Mapping(target = "totalSubjectWithholding" , source = "data.subtotal"),
+            @Mapping(target = "totalTaxWithheld" , source = "data.perception"),
+            @Mapping(target = "totalTaxWithheldLetters" , source = "data.electronicBillingSummary.totalWords"),
+    })
+    DteSummaryWithholdingReceiptResponseDto toDteSummaryWithholdingReceiptDto(Sales data);
+
+    @Mappings({
             @Mapping(target = "totalInWords" , source = "data.electronicBillingSummary.totalWords"),
             @Mapping(target = "totalNotSubject" , constant = "0.0F"),
             @Mapping(target = "totalExempt" , source = "data.electronicBillingSummary.fullyExempt"),

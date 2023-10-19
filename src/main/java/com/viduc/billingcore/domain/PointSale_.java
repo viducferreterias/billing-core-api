@@ -20,6 +20,7 @@ public class PointSale_ {
     public static volatile SingularAttribute<PointSale , Integer> storeCode;
     public static volatile SingularAttribute<PointSale , Integer> departmentCode;
     public static volatile SingularAttribute<PointSale , Integer> municipalityCode;
+    public static volatile SingularAttribute<PointSale , String> printer;
     public static volatile SingularAttribute<PointSale , Integer> companyId;
     public static volatile SingularAttribute<PointSale , Department> department;
     public static volatile SingularAttribute<PointSale , Municipality> municipality;

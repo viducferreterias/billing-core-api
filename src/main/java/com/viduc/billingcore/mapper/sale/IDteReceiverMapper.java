@@ -28,6 +28,22 @@ public interface IDteReceiverMapper {
     @Mapping(target = "address" , expression = "java(getAddress(data.getClient().getDepartment().getDepartmentCodeMH() , data.getClient().getMunicipality().getMunicipalityCodeMH() , data.getClient().getAddress()))")
     DteReceiverTaxReceiptSaleDto toDteTaxReceiptDto(Sales data);
 
+
+    @Mapping(target = "typeIdentificationDocument" , constant = "36")
+    @Mapping(target = "numberIdentificationDocument" , source = "data.supplier.nit" , qualifiedBy = {CharacterReplacer.class , CharacterReplacerNoHyphen.class})
+    @Mapping(target = "nrc" , source = "data.supplier.nrc" , qualifiedBy = {CharacterReplacer.class , CharacterReplacerNoHyphen.class})
+    @Mapping(target = "name" , source = "data.supplier.name")
+    @Mapping(target = "commercialName" , source = "data.supplier.name")
+    @Mapping(target = "phoneNumber" , source = "data.supplier.phone" , qualifiedBy = {CharacterReplacer.class , CharacterReplacerNoHyphen.class})
+    //@Mapping(target = "email" , source = "data.supplier.email")
+    @Mapping(target = "email" , constant = "facturacionelectronica@viduc.com.sv")
+    //@Mapping(target = "activityCode" , source = "data.supplier.economicActivityCode")
+    //@Mapping(target = "activityDescription" , source = "data.supplier.descriptionEconomicActivity")
+    @Mapping(target = "activityCode" , source = "data.supplier.codeEconomicActivity" , defaultValue = "10005")
+    @Mapping(target = "activityDescription" , source = "data.supplier.descriptionEconomicActivity" , defaultValue = "Otros")
+    @Mapping(target = "address" , expression = "java(getAddress(data.getSupplier().getDepartment().getDepartmentCodeMH() , data.getSupplier().getMunicipality().getMunicipalityCodeMH() , data.getSupplier().getAddress()))")
+    DteReceiverWithholdingReceiptDto toDteWithholdingReceiptDto(Sales data);
+
     @Mapping(target = "nit" , source = "data.client.nit" , qualifiedBy = {CharacterReplacer.class , CharacterReplacerNoHyphen.class})
     @Mapping(target = "nrc" , source = "data.client.nrc" , qualifiedBy = {CharacterReplacer.class , CharacterReplacerNoHyphen.class})
     @Mapping(target = "name" , source = "data.client.name")

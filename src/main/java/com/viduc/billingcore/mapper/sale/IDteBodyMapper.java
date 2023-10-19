@@ -1,9 +1,10 @@
 package com.viduc.billingcore.mapper.sale;
 
+import com.viduc.billingcore.domain.Sales;
 import com.viduc.billingcore.domain.view.ElectronicBillingBodyView;
 import com.viduc.billingcore.dto.components.*;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
+import jakarta.annotation.Nullable;
+import org.mapstruct.*;
 import org.mapstruct.factory.Mappers;
 
 import java.util.ArrayList;
@@ -18,6 +19,28 @@ public interface IDteBodyMapper {
     List<DteDocumentBodyDto> toDteBodyDto(List<ElectronicBillingBodyView> data);
 
     List<DteDocumentBodyDto> toDteBodyDeliveryNoteDto(List<InventoryMovementDetailDto> date);
+
+    @Mappings({
+            @Mapping(target = "itemNumber" , constant = "1"),
+            @Mapping(target = "electronicDocumentType" , constant = "03"),
+            @Mapping(target = "documentNumber" , source = "data.relatedInvoiceNumber"),
+            @Mapping(target = "documentType" , expression = "java(getDocumentType(data.getRelatedInvoiceNumber()))" , nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS),
+            @Mapping(target = "issuedOn" , source = "data.referenceDate"),
+            @Mapping(target = "taxableAmount" , source = "data.subtotal"),
+            @Mapping(target = "mhRetentionCode" , constant = "22"),
+            @Mapping(target = "withheldTax" , source = "data.perception"),
+            @Mapping(target = "description" , source = "data.comment3")
+    })
+    DteDocumentBodyWithholdingReceiptDto toDteBodyWithholdingReceiptDto(Sales data);
+
+    default Integer getDocumentType(String documentNumber) {
+
+        if (documentNumber.length() >= 36) {
+            return 2;
+        } else {
+            return 1;
+        }
+    }
 
     default DteDocumentBodyDto toDteBodyDeliveryNoteDto(InventoryMovementDetailDto data) {
         return DteDocumentBodyDeliveryNoteDto.builder()

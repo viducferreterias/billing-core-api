@@ -9,11 +9,12 @@ import org.hibernate.annotations.LazyToOne;
 import org.hibernate.annotations.LazyToOneOption;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Getter
 @Setter
-//@AllArgsConstructor
+@AllArgsConstructor
 @NoArgsConstructor
 @ToString
 @Entity
@@ -101,6 +102,9 @@ public class Sales implements Serializable {
     @Column(name = "numero_pedido")
     private String relatedInvoiceNumber;
 
+    @Column(name = "fecha_ref")
+    private LocalDate referenceDate;
+
     @Column(name = "impresion")
     private Integer impression;
 
@@ -109,26 +113,24 @@ public class Sales implements Serializable {
     @ToString.Exclude
     private Client client;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY , optional = false)
     @JoinColumn(name = "cod_cia" , insertable = false , updatable = false)
     @ToString.Exclude
     private Company company;
 
-    @OneToOne(fetch = FetchType.LAZY , optional = false)
-    //@LazyToOne(LazyToOneOption.NO_PROXY)
-    @JoinColumns({
-            @JoinColumn(name = "cod_cia" , referencedColumnName = "empresa_id" , insertable = false , updatable = false),
-            @JoinColumn(name = "cod_sucursal" , referencedColumnName = "codigo_sucursal", insertable = false , updatable = false),
-            @JoinColumn(name = "cod_doctoc" , referencedColumnName = "tipo_documento", insertable = false , updatable = false),
-            @JoinColumn(name = "num_docto" , referencedColumnName = "numero_documento", insertable = false , updatable = false),
-    })
+    @OneToOne(fetch = FetchType.LAZY, optional = false , cascade = CascadeType.ALL)
+    @ToString.Exclude
+    @JoinColumn(name = "cod_cia" , referencedColumnName = "empresa_id" , insertable = false , updatable = false)
+    @JoinColumn(name = "cod_sucursal" , referencedColumnName = "codigo_sucursal", insertable = false , updatable = false)
+    @JoinColumn(name = "cod_doctoc" , referencedColumnName = "tipo_documento", insertable = false , updatable = false)
+    @JoinColumn(name = "num_docto" , referencedColumnName = "numero_documento", insertable = false , updatable = false)
     private ElectronicBillingSummaryView electronicBillingSummary;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY , optional = false)
     @JoinColumn(name = "cod_sucursal" , referencedColumnName = "cod_sucursal" , insertable = false , updatable = false)
     private PointSale pointSale;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY , optional = false)
     @JoinColumn(name = "codigo_proveedor" , referencedColumnName = "cod_prov" , insertable = false , updatable = false)
     @ToString.Exclude
     private Supplier supplier;

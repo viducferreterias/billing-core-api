@@ -6,5 +6,6 @@ public enum DocumentType {
     EXPORT_INVOICE,
     CREDIT_NOTE,
     DEBIT_NOTE,
-    DELIVERY_NOTE
+    DELIVERY_NOTE,
+    WITHHOLDING_RECEIPT
 }

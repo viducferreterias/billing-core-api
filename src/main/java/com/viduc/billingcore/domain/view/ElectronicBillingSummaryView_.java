@@ -1,5 +1,6 @@
 package com.viduc.billingcore.domain.view;
 
+import com.viduc.billingcore.domain.Sales;
 import jakarta.persistence.metamodel.SingularAttribute;
 import jakarta.persistence.metamodel.StaticMetamodel;
 
