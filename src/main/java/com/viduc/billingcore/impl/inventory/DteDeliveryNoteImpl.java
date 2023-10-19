@@ -36,9 +36,13 @@ public class DteDeliveryNoteImpl implements IDteProcessor {
         var receiver = IDteReceiverMapper.INSTANCE.toDteDeliveryNoteDto(baseData);
         var summary = IDteSummaryMapper.INSTANCE.toDteSummaryDeliveryNoteDto(baseData);
 
-        appendix.add(DteAppendixDto.builder().label("numeroDoctoInterno").field("Numero Documento").value(baseData.getNumber().toString()).build());
-        appendix.add(DteAppendixDto.builder().label("codBodega").field("Codigo Bodega Origen").value(baseData.getWarehouse().toString()).build());
-        appendix.add(DteAppendixDto.builder().label("codBodegaDestino").field("Codigo Bodega Destino").value(baseData.getDestinationWarehouse().toString()).build());
+        appendix.add(DteAppendixDto.builder().label("Numero Documento").field("numeroDoctoInterno").value(baseData.getNumber().toString()).build());
+        appendix.add(DteAppendixDto.builder().label("Codigo Bodega Origen").field("codBodega").value(baseData.getWarehouse().toString()).build());
+        appendix.add(DteAppendixDto.builder().label("Codigo Bodega Destino").field("codBodegaDestino").value(baseData.getDestinationWarehouse().toString()).build());
+
+        if (baseData.getImpression().equals(1)) {
+            appendix.add(DteAppendixDto.builder().label(baseData.getPointSale().getPrinter()).field("1MPR1M3").value("S").build());
+        }
 
         var dte = DteSchemaBillResponseDto.builder()
                 .identification(identification)

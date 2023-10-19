@@ -38,7 +38,15 @@ public class DteExportBillImpl implements IDteProcessor {
         var receiver = IDteReceiverMapper.INSTANCE.toDteExportSaleDto(baseData);
         var summary = IDteSummaryMapper.INSTANCE.toDteSummaryExportSaleDocumentDto(baseData , payment);
 
-        appendixList.add(DteAppendixDto.builder().label("numeroDocumentoInterno").field("Numero Documento").value(baseData.getPointSale().getId().toString().concat("-").concat(baseData.getId().getDocumentNumber().toString())).build());
+        appendixList.add(DteAppendixDto.builder().label("Numero Documento").field("numeroDocumentoInterno").value(baseData.getPointSale().getId().toString().concat("-").concat(baseData.getId().getDocumentNumber().toString())).build());
+
+        if (baseData.getSpecialComment() != null) {
+            appendixList.add(DteAppendixDto.builder().label("Observacion Especial").field("comentarioEspecial").value(baseData.getSpecialComment()).build());
+        }
+
+        if (baseData.getImpression().equals(1)) {
+            appendixList.add(DteAppendixDto.builder().label(baseData.getPointSale().getPrinter()).field("1MPR1M3").value("S").build());
+        }
 
         var dte = DteSchemaCreditNoteResponseDto.builder()
                 .identification(identification)

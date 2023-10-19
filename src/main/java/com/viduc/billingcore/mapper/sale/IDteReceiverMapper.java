@@ -20,7 +20,7 @@ public interface IDteReceiverMapper {
     @Mapping(target = "commercialName" , source = "data.client.commercialName")
     @Mapping(target = "phoneNumber" , source = "data.client.phone" , qualifiedBy = {CharacterReplacer.class , CharacterReplacerNoHyphen.class})
     //@Mapping(target = "email" , source = "data.client.email")
-    @Mapping(target = "email" , constant = "facturacionelectronica@viduc.com.sv")
+    @Mapping(target = "email" , constant = "facturacion@viduc.com.sv")
     //@Mapping(target = "activityCode" , source = "data.client.economicActivityCode")
     //@Mapping(target = "activityDescription" , source = "data.client.descriptionEconomicActivity")
     @Mapping(target = "activityCode" , source = "data.client.economicActivityCode" , defaultValue = "10005")
@@ -36,7 +36,7 @@ public interface IDteReceiverMapper {
     @Mapping(target = "commercialName" , source = "data.supplier.name")
     @Mapping(target = "phoneNumber" , source = "data.supplier.phone" , qualifiedBy = {CharacterReplacer.class , CharacterReplacerNoHyphen.class})
     //@Mapping(target = "email" , source = "data.supplier.email")
-    @Mapping(target = "email" , constant = "facturacionelectronica@viduc.com.sv")
+    @Mapping(target = "email" , constant = "facturacion@viduc.com.sv")
     //@Mapping(target = "activityCode" , source = "data.supplier.economicActivityCode")
     //@Mapping(target = "activityDescription" , source = "data.supplier.descriptionEconomicActivity")
     @Mapping(target = "activityCode" , source = "data.supplier.codeEconomicActivity" , defaultValue = "10005")
@@ -50,7 +50,7 @@ public interface IDteReceiverMapper {
     @Mapping(target = "commercialName" , source = "data.client.commercialName")
     @Mapping(target = "phoneNumber" , source = "data.client.phone" , qualifiedBy = {CharacterReplacer.class , CharacterReplacerNoHyphen.class})
     //@Mapping(target = "email" , source = "data.client.email")
-    @Mapping(target = "email" , constant = "facturacionelectronica@viduc.com.sv")
+    @Mapping(target = "email" , constant = "facturacion@viduc.com.sv")
     //@Mapping(target = "activityCode" , source = "data.client.economicActivityCode")
     //@Mapping(target = "activityDescription" , source = "data.client.descriptionEconomicActivity")
     @Mapping(target = "activityCode" , source = "data.client.economicActivityCode" , defaultValue = "10005")
@@ -75,7 +75,7 @@ public interface IDteReceiverMapper {
             @Mapping(target = "name" , source = "data.client.name"),
             @Mapping(target = "phoneNumber" , source = "data.client.phone" , qualifiedBy = {CharacterReplacer.class , CharacterReplacerNoHyphen.class}),
             //@Mapping(target = "email" , source = "data.client.email"),
-            @Mapping(target = "email" , constant = "facturacionelectronica@viduc.com.sv"),
+            @Mapping(target = "email" , constant = "facturacion@viduc.com.sv"),
             @Mapping(target = "typeIdentificationDocument" , source = "." , qualifiedByName = "getTypeIdentificationDocument"),
             @Mapping(target = "numberIdentificationDocument" , source = "." , qualifiedByName = "getDocumentNumber"),
             @Mapping(target = "nrc" , source = "data.client.nrc" , qualifiedBy = {CharacterReplacer.class , CharacterReplacerNoHyphen.class}),
@@ -91,9 +91,9 @@ public interface IDteReceiverMapper {
             @Mapping(target = "name" , source = "data.client.name"),
             @Mapping(target = "phoneNumber" , source = "data.client.phone" , qualifiedBy = {CharacterReplacer.class , CharacterReplacerNoHyphen.class}),
             //@Mapping(target = "email" , source = "data.client.email"),
-            @Mapping(target = "email" , constant = "facturacionelectronica@viduc.com.sv"),
+            @Mapping(target = "email" , constant = "facturacion@viduc.com.sv"),
             @Mapping(target = "typeIdentificationDocument" , constant = "36"),
-            @Mapping(target = "numberIdentificationDocument" , source = "data.client.nit" ),
+            @Mapping(target = "numberIdentificationDocument" , source = "data.client.nit" , qualifiedBy = {CharacterReplacer.class , CharacterReplacerNoHyphen.class}),
             //@Mapping(target = "activityDescription" , source = "data.client.descriptionEconomicActivity"),
             @Mapping(target = "activityDescription" , source = "data.client.descriptionEconomicActivity" , defaultValue = "Otros"),
             @Mapping(target = "countryCode" , source = "data.client.country.countryCodeMH"),
@@ -120,9 +120,9 @@ public interface IDteReceiverMapper {
     @Named("getDocumentNumber")
     static String getDocumentNumber(Sales data) {
         if (data.getClient().getNit() == null)  {
-            return data.getClient().getDui();
+            return data.getClient().getDui().replace("-" , "");
         } else {
-            return data.getClient().getNit();
+            return data.getClient().getNit().replace("-" , "");
         }
     }
 

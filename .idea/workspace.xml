@@ -11,21 +11,15 @@
   <component name="ChangeListManager">
     <list default="true" id="f447e09b-85df-46cb-93d3-5f4c8c04f5d6" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/domain/PointSale.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/domain/PointSale.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/domain/PointSale_.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/domain/PointSale_.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/domain/Sales.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/domain/Sales.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/domain/SalesPrimaryKey.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/domain/SalesPrimaryKey.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/domain/Sales_.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/domain/Sales_.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/domain/view/ElectronicBillingSummaryView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/domain/view/ElectronicBillingSummaryView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/domain/view/ElectronicBillingSummaryView_.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/domain/view/ElectronicBillingSummaryView_.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/dto/components/DteIdentificationDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/dto/components/DteIdentificationDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/factory/DteProcessorFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/factory/DteProcessorFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/mapper/sale/IDteBodyMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/mapper/sale/IDteBodyMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/mapper/sale/IDteIdentificationMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/mapper/sale/IDteIdentificationMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/impl/inventory/DteDeliveryNoteImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/impl/inventory/DteDeliveryNoteImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/impl/sale/DteBillImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/impl/sale/DteBillImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/impl/sale/DteCreditNoteImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/impl/sale/DteCreditNoteImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/impl/sale/DteDebitNoteImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/impl/sale/DteDebitNoteImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/impl/sale/DteExportBillImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/impl/sale/DteExportBillImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/impl/sale/DteTaxReceiptImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/impl/sale/DteTaxReceiptImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/impl/sale/DteWithholdingReceiptImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/impl/sale/DteWithholdingReceiptImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/mapper/sale/IDteReceiverMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/mapper/sale/IDteReceiverMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/mapper/sale/IDteSummaryMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/mapper/sale/IDteSummaryMapper.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/repository/sale/DteGeneratorRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/repository/sale/DteGeneratorRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/utils/enums/DocumentType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/utils/enums/DocumentType.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -539,7 +533,7 @@
       <workItem from="1697471443473" duration="14832000" />
       <workItem from="1697565353313" duration="11466000" />
       <workItem from="1697643915128" duration="10945000" />
-      <workItem from="1697732892763" duration="683000" />
+      <workItem from="1697732892763" duration="7062000" />
     </task>
     <servers />
   </component>

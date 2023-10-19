@@ -36,6 +36,7 @@ public class InventoryMovementDto {
     private String valueInWord;
     private String dateIssuedOn;
     private String hourIssuedOn;
+    private Integer impression;
     private Company company;
     private PointSale pointSale;
     private Department pointSaleDepartment;

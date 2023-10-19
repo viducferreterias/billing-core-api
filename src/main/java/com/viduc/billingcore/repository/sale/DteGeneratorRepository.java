@@ -194,9 +194,7 @@ public class DteGeneratorRepository {
                         , builder.equal(body.get(ElectronicBillingBodyView_.documentDate) , request.getDate()));
 
 
-        var result = em.createQuery(criteria).getResultList();
-
-        return dteBodyMapper.toDteBodyDto(result);
+        return dteBodyMapper.toDteBodyDto(em.createQuery(criteria).getResultList());
 
     }
 
@@ -221,7 +219,6 @@ public class DteGeneratorRepository {
                 builder.equal(detail.get(InventoryMovementDetail_.id).get(InventoryMovementDetailPrimaryKey_.type) , request.getDocumentType()),
                 builder.equal(detail.get(InventoryMovementDetail_.id).get(InventoryMovementDetailPrimaryKey_.number) , request.getDocumentNumber()),
                 builder.equal(detail.get(InventoryMovementDetail_.id).get(InventoryMovementDetailPrimaryKey_.warehouse) , request.getWarehouseOrigin()));
-
 
         return dteBodyMapper.toDteBodyDeliveryNoteDto(em.createQuery(criteria).getResultList());
     }
@@ -259,6 +256,7 @@ public class DteGeneratorRepository {
                 builder.function("fn_transformar_monto_letras" , String.class , inventoryMovement.get(InventoryMovement_.subtotal)),
                 builder.function("to_char" , String.class , inventoryMovement.get(InventoryMovement_.issuedOn) , builder.literal("yyyy-mm-dd")),
                 builder.function("to_char" , String.class , inventoryMovement.get(InventoryMovement_.issuedOn) , builder.literal("hh24:mi:ss")),
+                inventoryMovement.get(InventoryMovement_.impression),
                 company,
                 pointSale,
                 pointSaleDepartment,
@@ -272,6 +270,7 @@ public class DteGeneratorRepository {
                         builder.equal(inventoryMovement.get(InventoryMovement_.id).get(InventoryMovementPrimaryKey_.companyId) , request.getCompanyId()),
                         builder.equal(inventoryMovement.get(InventoryMovement_.id).get(InventoryMovementPrimaryKey_.warehouse) , request.getWarehouseOrigin()),
                         builder.equal(inventoryMovement.get(InventoryMovement_.issuedOn) , request.getDate()));
+
 
 
         return em.createQuery(criteria).getSingleResult();
