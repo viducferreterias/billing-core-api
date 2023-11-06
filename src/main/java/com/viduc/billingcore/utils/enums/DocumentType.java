@@ -7,5 +7,6 @@ public enum DocumentType {
     CREDIT_NOTE,
     DEBIT_NOTE,
     DELIVERY_NOTE,
-    WITHHOLDING_RECEIPT
+    WITHHOLDING_RECEIPT,
+    INVALIDATION
 }

@@ -5,9 +5,10 @@ import com.viduc.billingcore.dto.components.DteRelatedDocumentsDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
+import org.mapstruct.NullValueCheckStrategy;
 import org.mapstruct.factory.Mappers;
 
-@Mapper
+@Mapper(nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS)
 public interface IDteRelatedDocumentMapper {
 
     IDteRelatedDocumentMapper INSTANCE = Mappers.getMapper(IDteRelatedDocumentMapper.class);

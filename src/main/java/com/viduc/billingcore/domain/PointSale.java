@@ -62,14 +62,14 @@ public class PointSale implements Serializable {
     @Column(name = "cod_cia")
     private Integer companyId;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumnsOrFormulas({
             @JoinColumnOrFormula(column = @JoinColumn(name = "codigo_departamento" , referencedColumnName = "cod_depto" , insertable = false , updatable = false)),
             @JoinColumnOrFormula(formula = @JoinFormula(value = "1" , referencedColumnName = "cod_pais"))
     })
     private Department department;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumnsOrFormulas({
             @JoinColumnOrFormula(column = @JoinColumn(name = "codigo_departamento" , referencedColumnName = "cod_depto" , insertable = false , updatable = false)),
             @JoinColumnOrFormula(column = @JoinColumn(name = "codigo_municipio" , referencedColumnName = "cod_muni" , insertable = false , updatable = false)),

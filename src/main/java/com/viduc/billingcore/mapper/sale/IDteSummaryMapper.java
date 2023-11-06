@@ -10,7 +10,7 @@ import org.mapstruct.factory.Mappers;
 import java.util.*;
 import java.util.stream.Collectors;
 
-@Mapper
+@Mapper(nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS)
 public interface IDteSummaryMapper {
 
     IDteSummaryMapper INSTANCE = Mappers.getMapper(IDteSummaryMapper.class);

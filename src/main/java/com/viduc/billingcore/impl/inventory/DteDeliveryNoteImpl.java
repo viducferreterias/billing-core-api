@@ -39,6 +39,7 @@ public class DteDeliveryNoteImpl implements IDteProcessor {
         appendix.add(DteAppendixDto.builder().label("Numero Documento").field("numeroDoctoInterno").value(baseData.getNumber().toString()).build());
         appendix.add(DteAppendixDto.builder().label("Codigo Bodega Origen").field("codBodega").value(baseData.getWarehouse().toString()).build());
         appendix.add(DteAppendixDto.builder().label("Codigo Bodega Destino").field("codBodegaDestino").value(baseData.getDestinationWarehouse().toString()).build());
+        appendix.add(DteAppendixDto.builder().label(baseData.getPointSale().getPrinter()).field("1MPR1M3").value("S").build());
 
         if (baseData.getImpression().equals(1)) {
             appendix.add(DteAppendixDto.builder().label(baseData.getPointSale().getPrinter()).field("1MPR1M3").value("S").build());

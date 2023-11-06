@@ -3,6 +3,8 @@ package com.viduc.billingcore.repository.configuration;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.viduc.billingcore.dto.response.DteApiProcessingResultResponseDte;
 import com.viduc.billingcore.repository.sale.DteGeneratorRepository;
+import com.viduc.billingcore.utils.enums.RequestProcessType;
+import jakarta.ejb.Schedule;
 import jakarta.ejb.Singleton;
 import jakarta.ejb.Stateless;
 import jakarta.inject.Inject;
@@ -15,7 +17,9 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
@@ -25,7 +29,6 @@ public class DteApiRepository {
 
     @Inject
     private GlobalVariables globalVariable;
-
     public void authenticate() throws Exception {
 
         var client = HttpClient.newHttpClient();
@@ -61,28 +64,39 @@ public class DteApiRepository {
 
     }
 
-    public DteApiProcessingResultResponseDte send(String dte) throws Exception {
+    public DteApiProcessingResultResponseDte send(String dte , RequestProcessType type) throws Exception {
 
         var client = HttpClient.newHttpClient();
         var token = globalVariable.getToken();
         var jsonMapper = new ObjectMapper();
+        var request = new Object();
 
 
         if (globalVariable.getToken() == null) {
             authenticate();
             token = globalVariable.getToken();
+            log.info("Token: " + token);
         }
 
-        log.info("Token: " + token);
 
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(new URI("http://192.168.0.208/api-viduc/datos/insertar/general"))
-                .header("Authorization" , "Bearer " + token)
-                .headers("Content-Type" , "application/json")
-                .POST(HttpRequest.BodyPublishers.ofString(dte))
-                .build();
+        if (type == RequestProcessType.DTE) {
+                    request = HttpRequest.newBuilder()
+                    .uri(new URI("http://192.168.0.208/api-viduc/datos/insertar/general"))
+                    .header("Authorization" , "Bearer " + token)
+                    .headers("Content-Type" , "application/json")
+                    .POST(HttpRequest.BodyPublishers.ofString(dte))
+                    .build();
+        } else {
+                     request = HttpRequest.newBuilder()
+                    .uri(new URI("http://192.168.0.208/api-viduc/datos/insertar/anulacionMH"))
+                    .header("Authorization" , "Bearer " + token)
+                    .headers("Content-Type" , "application/json")
+                    .POST(HttpRequest.BodyPublishers.ofString(dte))
+                    .build();
+        }
 
-        var response = client.sendAsync(request , HttpResponse.BodyHandlers.ofString()).get(5 , TimeUnit.MINUTES);
+
+        var response = client.sendAsync((HttpRequest) request, HttpResponse.BodyHandlers.ofString()).get(5 , TimeUnit.MINUTES);
 
         log.info(response.body());
 

@@ -55,4 +55,10 @@ public class DteProcessorFactory implements Serializable {
         return new DteWithholdingReceiptImpl();
     }
 
+    @Produces
+    @TypeElectronicDocument(DocumentType.INVALIDATION)
+    public IDteProcessor getInvalidation() {
+        return new DteInvalidationImpl();
+    }
+
 }

@@ -10,7 +10,7 @@ import org.mapstruct.factory.Mappers;
 import java.util.ArrayList;
 import java.util.List;
 
-@Mapper(componentModel = "cdi")
+@Mapper(componentModel = "cdi" ,  nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS)
 public interface IDteBodyMapper {
 
     IDteBodyMapper INSTANCE = Mappers.getMapper(IDteBodyMapper.class);

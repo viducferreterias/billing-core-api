@@ -1,24 +1,22 @@
 package com.viduc.billingcore.mapper.sale;
 
 import com.viduc.billingcore.domain.Sales;
+import com.viduc.billingcore.domain.view.ElectronicBillingCancellationsView;
 import com.viduc.billingcore.dto.components.*;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.Mappings;
-import org.mapstruct.Named;
+import org.mapstruct.*;
 import org.mapstruct.factory.Mappers;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-@Mapper
+@Mapper(nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS)
 public interface IDteIdentificationMapper {
 
     IDteIdentificationMapper INSTANCE = Mappers.getMapper(IDteIdentificationMapper.class);
 
     @Mapping(target = "version" , source = "data.taxDocumentVersion")
-    @Mapping(target = "destinationEnvironment" , constant = "00")
+    @Mapping(target = "destinationEnvironment" , constant = "01")
     @Mapping(target = "dteType" , source = "data.id.documentTypeCode" , qualifiedByName = "getDteType")
     @Mapping(target = "dateIssuedOn" , source = "documentDate"  , qualifiedByName = "getDate")
     @Mapping(target = "hourIssuedOn" , source = "documentDate" , qualifiedByName = "getTime")
@@ -28,7 +26,7 @@ public interface IDteIdentificationMapper {
 
     @Mappings({
             @Mapping(target = "version" , source = "data.taxDocumentVersion"),
-            @Mapping(target = "destinationEnvironment" , constant = "00"),
+            @Mapping(target = "destinationEnvironment" , constant = "01"),
             @Mapping(target = "dteType" , source = "data.type" , qualifiedByName = "getDteType"),
             @Mapping(target = "dateIssuedOn" , source = "data.dateIssuedOn" ),
             @Mapping(target = "hourIssuedOn" , source = "data.hourIssuedOn" ),
@@ -36,10 +34,19 @@ public interface IDteIdentificationMapper {
     })
     DteIdentificationBaseDocumentDto toIdentificationInventoryDto(InventoryMovementDto data);
 
+    @Mappings({
+            @Mapping(target = "version" , constant = "2"),
+            @Mapping(target = "destinationEnvironment" , constant = "01"),
+            @Mapping(target = "generationCode" , source = "data.invalidationGenerationCode"),
+            @Mapping(target = "dateIssuedOn" , source = "data.invalidationGenerationDate" , qualifiedByName = "getDate"),
+            @Mapping(target = "hourIssuedOn" , source = "data.invalidationGenerationDate" , qualifiedByName = "getTime")
+    })
+    DteIdentificationInvalidationDto toIdentificationInvalidationDto(ElectronicBillingCancellationsView data);
+
     @Named("getDate")
     public static String getDate(LocalDateTime documentDate) {
-        //return documentDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-        return LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        return documentDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        //return LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
     }
 
     @Named("getTime")

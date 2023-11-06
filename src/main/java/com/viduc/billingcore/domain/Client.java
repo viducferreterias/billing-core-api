@@ -72,14 +72,14 @@ public class Client implements Serializable {
     @ToString.Exclude
     private List<Sales> sales;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumns({
             @JoinColumn(name = "cod_depto" , referencedColumnName = "cod_depto" , updatable = false , insertable = false),
             @JoinColumn(name = "cod_pais" , referencedColumnName = "cod_pais" , updatable = false , insertable = false)
     })
     private Department department;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumns({
             @JoinColumn(name = "cod_depto" , referencedColumnName = "cod_depto" , updatable = false , insertable = false),
             @JoinColumn(name = "cod_pais" , referencedColumnName = "cod_pais" , updatable = false , insertable = false),
@@ -87,7 +87,7 @@ public class Client implements Serializable {
     })
     private Municipality municipality;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cod_pais" , referencedColumnName = "cod_pais" , updatable = false , insertable = false)
     private Country country;
 

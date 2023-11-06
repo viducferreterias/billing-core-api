@@ -8,7 +8,9 @@ import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import lombok.Getter;
 
+import javax.print.attribute.standard.Media;
 import java.time.LocalDateTime;
 
 @Path(value = "/dte")
@@ -33,6 +35,24 @@ public class DteEndpointService {
                 .build();
 
         return Response.ok().entity(dteGeneratorRepository.generate(request)).build();
+    }
+
+    @GET
+    @Path(value = "/invalidate")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response invalidate(@QueryParam(value = "posId") Integer posId , @QueryParam(value = "documentType") Integer documentType , @QueryParam(value = "documentNumber") Integer documentNumber , @QueryParam(value = "documentDate") String documentDate , @QueryParam(value = "companyId") Integer companyId , @QueryParam(value = "warehouseOrigin") Integer warehouseOrigin) throws Exception {
+
+        var request = DteRequestDto.builder()
+                .companyId(companyId)
+                .posId(posId)
+                .documentType(documentType)
+                .documentNumber(documentNumber)
+                .date(LocalDateTime.parse(documentDate))
+                .warehouseOrigin(warehouseOrigin)
+                .build();
+
+        return Response.ok().entity(dteGeneratorRepository.invalidateDocument(request)).build();
     }
 
 }

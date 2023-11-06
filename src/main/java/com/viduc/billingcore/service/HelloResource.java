@@ -7,10 +7,12 @@ import jakarta.inject.Inject;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
+import lombok.extern.java.Log;
 
 import java.time.LocalDateTime;
 
 @RequestScoped
+@Log
 @Path("/hello-world")
 public class HelloResource {
 

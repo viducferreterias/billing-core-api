@@ -1,0 +1,7 @@
+version: "3.9"
+services:
+  fe-service-api:
+    build: .
+    ports:
+      - "8087:8080"
+      - "9997:9990"

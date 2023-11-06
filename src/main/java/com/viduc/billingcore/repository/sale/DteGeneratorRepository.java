@@ -1,12 +1,10 @@
 package com.viduc.billingcore.repository.sale;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.viduc.billingcore.domain.*;
 import com.viduc.billingcore.domain.view.*;
-import com.viduc.billingcore.dto.components.DteDocumentBodyDto;
-import com.viduc.billingcore.dto.components.DtePaymentsDto;
-import com.viduc.billingcore.dto.components.InventoryMovementDetailDto;
-import com.viduc.billingcore.dto.components.InventoryMovementDto;
+import com.viduc.billingcore.dto.components.*;
 import com.viduc.billingcore.dto.request.sales.DteRequestDto;
 import com.viduc.billingcore.dto.response.DteApiProcessingResultResponseDte;
 import com.viduc.billingcore.mapper.sale.IDteBodyMapper;
@@ -14,7 +12,9 @@ import com.viduc.billingcore.mapper.sale.IDtePaymentMapper;
 import com.viduc.billingcore.repository.configuration.ConfigurationRepository;
 import com.viduc.billingcore.repository.configuration.DteApiRepository;
 import com.viduc.billingcore.utils.enums.DocumentType;
+import com.viduc.billingcore.utils.enums.RequestProcessType;
 import com.viduc.billingcore.utils.qualifier.TypeElectronicDocument;
+import jakarta.ejb.Asynchronous;
 import jakarta.ejb.Stateless;
 import jakarta.inject.Inject;
 import jakarta.persistence.Convert;
@@ -25,6 +25,7 @@ import jakarta.transaction.Transactional;
 import lombok.extern.java.Log;
 import org.hibernate.annotations.Type;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -68,6 +69,10 @@ public class DteGeneratorRepository {
     private IDteProcessor dteProcessorWithholdingReceipt;
 
     @Inject
+    @TypeElectronicDocument(DocumentType.INVALIDATION)
+    private IDteProcessor dteProcessorInvalidation;
+
+    @Inject
     private IDtePaymentMapper dtePaymentMapper;
 
     @Inject
@@ -94,37 +99,72 @@ public class DteGeneratorRepository {
 
         if (request.getDocumentType().equals(2)) {
             dte = dteProcessorFiscalCredit.generate(data , dtePaymentData(request) , dteBodySalesData(request));
-            dteProcessingResult = dteApiRepository.send(jsonMapper.writeValueAsString(dte));
+            dteProcessingResult = dteApiRepository.send(jsonMapper.writeValueAsString(dte) , RequestProcessType.DTE);
         } else if (request.getDocumentType().equals(12) || request.getDocumentType().equals(13)) {
             dte = dteProcessorBill.generate(data , dtePaymentData(request) , dteBodySalesData(request));
-            dteProcessingResult = dteApiRepository.send(jsonMapper.writeValueAsString(dte));
+            dteProcessingResult = dteApiRepository.send(jsonMapper.writeValueAsString(dte) , RequestProcessType.DTE);
         } else if (request.getDocumentType().equals(17)) {
             dte = dteProcessorExport.generate(data , dtePaymentData(request) , dteBodySalesData(request));
-            dteProcessingResult = dteApiRepository.send(jsonMapper.writeValueAsString(dte));
+            dteProcessingResult = dteApiRepository.send(jsonMapper.writeValueAsString(dte) , RequestProcessType.DTE);
         } else if (request.getDocumentType().equals(14)) {
             dte = dteProcessorCreditNote.generate(data , null , dteBodySalesData(request));
-            dteProcessingResult = dteApiRepository.send(jsonMapper.writeValueAsString(dte));
+            dteProcessingResult = dteApiRepository.send(jsonMapper.writeValueAsString(dte) , RequestProcessType.DTE);
         } else if (request.getDocumentType().equals(16)) {
             dte = dteProcessorDebitNote.generate(data , null , dteBodySalesData(request));
-            dteProcessingResult = dteApiRepository.send(jsonMapper.writeValueAsString(dte));
+            dteProcessingResult = dteApiRepository.send(jsonMapper.writeValueAsString(dte) , RequestProcessType.DTE);
         } else if (request.getDocumentType().equals(11)) {
             dte = dteProcessorDeliveryNote.generate(data , null , dteBodyInventoryData(request));
-            dteProcessingResult = dteApiRepository.send(jsonMapper.writeValueAsString(dte));
+            dteProcessingResult = dteApiRepository.send(jsonMapper.writeValueAsString(dte) , RequestProcessType.DTE);
         } else if (request.getDocumentType().equals(20)) {
             dte = dteProcessorWithholdingReceipt.generate(data , null , null);
-            dteProcessingResult = dteApiRepository.send(jsonMapper.writeValueAsString(dte));
+            dteProcessingResult = dteApiRepository.send(jsonMapper.writeValueAsString(dte) , RequestProcessType.DTE);
         } else {
             dte = null;
         }
 
-        if (!dteProcessingResult.getReceptionStamp().isBlank()) {
-            stampDocument(request , dteProcessingResult);
+        if (dteProcessingResult.getReceptionStamp() != null) {
+            stampDocument(request , dteProcessingResult , RequestProcessType.DTE);
         }
-
 
         return dteProcessingResult;
 
     }
+
+    public Object invalidateDocument(DteRequestDto request) throws Exception {
+
+        var mapper = new ObjectMapper();
+        var dte = new Object();
+        var dteProcessingResult = new DteApiProcessingResultResponseDte();
+
+        var builder = em.getCriteriaBuilder();
+        var criteria = builder.createQuery(ElectronicBillingCancellationsView.class);
+        var invalidation = criteria.from(ElectronicBillingCancellationsView.class);
+        var client = invalidation.fetch(ElectronicBillingCancellationsView_.client);
+        var pointSale = invalidation.fetch(ElectronicBillingCancellationsView_.pointSale);
+        var requestBy = invalidation.fetch(ElectronicBillingCancellationsView_.employeeRequestBy , JoinType.LEFT);
+        var createdBy = invalidation.fetch(ElectronicBillingCancellationsView_.employeeCreatedBy , JoinType.LEFT);
+        var company = invalidation.fetch(ElectronicBillingCancellationsView_.company);
+
+        criteria.where(builder.equal(invalidation.get(ElectronicBillingCancellationsView_.branchCode) , request.getPosId()),
+                builder.equal(invalidation.get(ElectronicBillingCancellationsView_.documentType) , request.getDocumentType()),
+                builder.equal(invalidation.get(ElectronicBillingCancellationsView_.documentNumber) , request.getDocumentNumber()),
+                builder.equal(invalidation.get(ElectronicBillingCancellationsView_.createdThe) , request.getDate()));
+
+        var result = em.createQuery(criteria).getSingleResult();
+
+        if (result != null) {
+            dte = dteProcessorInvalidation.generate(result , null , null);
+            dteProcessingResult = dteApiRepository.send(mapper.writeValueAsString(dte) , RequestProcessType.INVALIDATION);
+
+            if (!dteProcessingResult.getReceptionStamp().isBlank()) {
+                stampDocument(request , dteProcessingResult , RequestProcessType.INVALIDATION);
+            }
+        }
+
+        return dteProcessingResult;
+
+    }
+
 
     private Sales dteSalesBaseData(DteRequestDto request) {
 
@@ -157,8 +197,9 @@ public class DteGeneratorRepository {
                 builder.equal(sale.get(Sales_.id).get(SalesPrimaryKey_.documentTypeCode) , request.getDocumentType()) ,
                 builder.equal(sale.get(Sales_.id).get(SalesPrimaryKey_.documentNumber) , request.getDocumentNumber()) ,
                 builder.equal(sale.get(Sales_.id).get(SalesPrimaryKey_.companyId) , request.getCompanyId()),
-                builder.equal(sale.get(Sales_.documentDate) , request.getDate()),
-                builder.equal(sale.get(Sales_.state) , "G"));
+                builder.equal(sale.get(Sales_.documentDate) , request.getDate())
+        //        builder.equal(sale.get(Sales_.state) , "G")
+        );
 
         return  em.createQuery(criteria).getSingleResult();
 
@@ -276,16 +317,21 @@ public class DteGeneratorRepository {
         return em.createQuery(criteria).getSingleResult();
     }
 
-    private void stampDocument(DteRequestDto request , DteApiProcessingResultResponseDte dteResult) {
+    private void stampDocument(DteRequestDto request , DteApiProcessingResultResponseDte dteResult , RequestProcessType type) {
+
+        log.info("sellando documento");
 
         var builder = em.getCriteriaBuilder();
+        var dteSaleDocuments = new ArrayList<>(List.of(new Integer[] {2, 12, 13 , 17 , 14 , 16 , 20}));
+        var dteSaleCancellationDocuments = new ArrayList<>(List.of(new Integer[] {15 , 18 , 19}));
+        var dteInventoryDocuments = new ArrayList<>(List.of(new Integer[] {11}));
 
-        if (request.getDocumentType().equals(2) || request.getDocumentType().equals(12) || request.getDocumentType().equals(13) || request.getDocumentType().equals(17) || request.getDocumentType().equals(14) || request.getDocumentType().equals(16) || request.getDocumentType().equals(20)) {
-
+        if (dteSaleDocuments.contains(request.getDocumentType()) && type.equals(RequestProcessType.DTE)) {
             var criteria = builder.createCriteriaUpdate(Sales.class);
             var sale = criteria.from(Sales.class);
 
             criteria.set(sale.get(Sales_.electronicReceiptSale) , dteResult.getReceptionStamp());
+
             criteria.where(builder.equal(sale.get(Sales_.id).get(SalesPrimaryKey_.companyId) , request.getCompanyId()),
                     builder.equal(sale.get(Sales_.id).get(SalesPrimaryKey_.documentTypeCode) , request.getDocumentType()),
                     builder.equal(sale.get(Sales_.id).get(SalesPrimaryKey_.pointSaleCode) , request.getPosId()),
@@ -294,6 +340,34 @@ public class DteGeneratorRepository {
                     builder.isNull(sale.get(Sales_.electronicReceiptSale)));
 
             em.createQuery(criteria).executeUpdate();
+
+        } else if ((dteSaleDocuments.contains(request.getDocumentType()) || dteInventoryDocuments.contains(request.getDocumentType())) && type.equals(RequestProcessType.INVALIDATION)) {
+
+            var criteria = builder.createCriteriaUpdate(Cancellations.class);
+            var cancellations = criteria.from(Cancellations.class);
+
+            criteria.set(cancellations.get(Cancellations_.receptionStamp) , dteResult.getReceptionStamp())
+                    .set(cancellations.get(Cancellations_.generationCode) , dteResult.getGenerationCode());
+            criteria.where(builder.equal(cancellations.get(Cancellations_.pointSale) , request.getPosId()),
+                    builder.equal(cancellations.get(Cancellations_.documentType) , request.getDocumentType()),
+                    builder.equal(cancellations.get(Cancellations_.documentNumber) , request.getDocumentNumber()),
+                    builder.equal(cancellations.get(Cancellations_.issueOn) , request.getDate()),
+                    builder.equal(cancellations.get(Cancellations_.companyId) , request.getCompanyId()));
+
+        } else if (dteSaleCancellationDocuments.contains(request.getDocumentType()) && type.equals(RequestProcessType.INVALIDATION)) {
+
+            var criteria = builder.createCriteriaUpdate(Sales.class);
+            var sale = criteria.from(Sales.class);
+
+            criteria.set(sale.get(Sales_.electronicReceiptSale) , dteResult.getReceptionStamp())
+                    .set(sale.get(Sales_.generationCode) , dteResult.getGenerationCode());
+
+            criteria.where(builder.equal(sale.get(Sales_.id).get(SalesPrimaryKey_.companyId) , request.getCompanyId()),
+                    builder.equal(sale.get(Sales_.id).get(SalesPrimaryKey_.documentTypeCode) , request.getDocumentType()),
+                    builder.equal(sale.get(Sales_.id).get(SalesPrimaryKey_.pointSaleCode) , request.getPosId()),
+                    builder.equal(sale.get(Sales_.id).get(SalesPrimaryKey_.documentNumber) , request.getDocumentNumber()),
+                    builder.equal(sale.get(Sales_.documentDate) , request.getDate()),
+                    builder.isNull(sale.get(Sales_.electronicReceiptSale)));
 
         } else {
 

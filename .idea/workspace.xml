@@ -11,15 +11,24 @@
   <component name="ChangeListManager">
     <list default="true" id="f447e09b-85df-46cb-93d3-5f4c8c04f5d6" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/domain/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/domain/Client.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/domain/PointSale.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/domain/PointSale.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/dto/response/DteApiProcessingResultResponseDte.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/dto/response/DteApiProcessingResultResponseDte.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/factory/DteProcessorFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/factory/DteProcessorFactory.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/impl/inventory/DteDeliveryNoteImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/impl/inventory/DteDeliveryNoteImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/impl/sale/DteBillImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/impl/sale/DteBillImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/impl/sale/DteCreditNoteImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/impl/sale/DteCreditNoteImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/impl/sale/DteDebitNoteImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/impl/sale/DteDebitNoteImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/impl/sale/DteExportBillImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/impl/sale/DteExportBillImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/impl/sale/DteTaxReceiptImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/impl/sale/DteTaxReceiptImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/impl/sale/DteWithholdingReceiptImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/impl/sale/DteWithholdingReceiptImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/mapper/sale/IDteBodyMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/mapper/sale/IDteBodyMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/mapper/sale/IDteIdentificationMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/mapper/sale/IDteIdentificationMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/mapper/sale/IDtePaymentMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/mapper/sale/IDtePaymentMapper.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/mapper/sale/IDteReceiverMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/mapper/sale/IDteReceiverMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/mapper/sale/IDteRelatedDocumentMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/mapper/sale/IDteRelatedDocumentMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/mapper/sale/IDteSummaryMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/mapper/sale/IDteSummaryMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/mapper/sale/IDteTransmitterMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/mapper/sale/IDteTransmitterMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/repository/configuration/DteApiRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/repository/configuration/DteApiRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/repository/sale/DteGeneratorRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/repository/sale/DteGeneratorRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/service/HelloResource.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/service/HelloResource.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/service/sales/DteEndpointService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/service/sales/DteEndpointService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/utils/enums/DocumentType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/utils/enums/DocumentType.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,9 +38,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Enum" />
         <option value="AnnotationType" />
         <option value="Interface" />
+        <option value="Enum" />
         <option value="Class" />
       </list>
     </option>
@@ -141,8 +150,10 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
-      <option name="TEST_OBJECT" value="class" />
+    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
+      <option name="TEST_OBJECT" value="CLASS" />
+      <properties />
+      <listeners />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -533,8 +544,31 @@
       <workItem from="1697471443473" duration="14832000" />
       <workItem from="1697565353313" duration="11466000" />
       <workItem from="1697643915128" duration="10945000" />
-      <workItem from="1697732892763" duration="7062000" />
+      <workItem from="1697732892763" duration="8402000" />
+      <workItem from="1697815886478" duration="4367000" />
+      <workItem from="1697907755852" duration="2672000" />
+      <workItem from="1698078601253" duration="7687000" />
+      <workItem from="1698162115861" duration="15898000" />
+      <workItem from="1698250270563" duration="6740000" />
+      <workItem from="1698335377374" duration="15616000" />
+      <workItem from="1698438449701" duration="3168000" />
+      <workItem from="1698507655787" duration="3323000" />
+      <workItem from="1698637774685" duration="1992000" />
+      <workItem from="1698688614573" duration="717000" />
+      <workItem from="1698773310826" duration="3595000" />
+      <workItem from="1698813973211" duration="14059000" />
+      <workItem from="1699029036315" duration="14380000" />
+      <workItem from="1699291297625" duration="3137000" />
     </task>
+    <task id="LOCAL-00001" summary="feat: impresion automatica en impresores remotos">
+      <option name="closed" value="true" />
+      <created>1697750666817</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1697750666817</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -550,5 +584,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="feat: impresion automatica en impresores remotos" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: impresion automatica en impresores remotos" />
   </component>
 </project>

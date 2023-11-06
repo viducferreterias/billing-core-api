@@ -5,11 +5,12 @@ import com.viduc.billingcore.dto.components.DtePaymentsDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
+import org.mapstruct.NullValueCheckStrategy;
 import org.mapstruct.factory.Mappers;
 
 import java.util.List;
 
-@Mapper(componentModel = "cdi")
+@Mapper(componentModel = "cdi" ,  nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS)
 public interface IDtePaymentMapper {
 
     IDtePaymentMapper INSTANCE = Mappers.getMapper(IDtePaymentMapper.class);
