@@ -21,11 +21,12 @@ public interface IDteReceiverMapper {
     @Mapping(target = "phoneNumber" , source = "data.client.phone" , qualifiedBy = {CharacterReplacer.class , CharacterReplacerNoHyphen.class})
     @Mapping(target = "email" , source = "data.client.email" , defaultValue = "no-reply@viduc.com.sv")
     //@Mapping(target = "email" , constant = "facturacion@viduc.com.sv")
-    @Mapping(target = "activityCode" , source = "data.client.economicActivityCode" , defaultValue = "10005")
+    @Mapping(target = "activityCode" , source = "data.client.economicActivityCode" , defaultValue = "10005" , qualifiedByName = "getActivityCode")
     @Mapping(target = "activityDescription" , source = "data.client.descriptionEconomicActivity" , defaultValue = "Otros")
     //@Mapping(target = "activityCode" , source = "data.client.economicActivityCode" , defaultValue = "10005")
     //@Mapping(target = "activityDescription" , source = "data.client.descriptionEconomicActivity" , defaultValue = "Otros")
-    @Mapping(target = "address" , expression = "java(getAddress(data.getClient().getDepartment().getDepartmentCodeMH() , data.getClient().getMunicipality().getMunicipalityCodeMH() , data.getClient().getAddress()))")
+    //@Mapping(target = "address" , expression = "java(getAddress(data.getClient().getDepartment().getDepartmentCodeMH() , data.getClient().getMunicipality().getMunicipalityCodeMH() , data.getClient().getAddress()))")
+    @Mapping(target = "address" , source = "." , qualifiedByName = "getAddress")
     DteReceiverTaxReceiptSaleDto toDteTaxReceiptDto(Sales data);
 
 
@@ -37,11 +38,12 @@ public interface IDteReceiverMapper {
     @Mapping(target = "phoneNumber" , source = "data.supplier.phone" , qualifiedBy = {CharacterReplacer.class , CharacterReplacerNoHyphen.class})
     @Mapping(target = "email" , source = "data.supplier.email" , defaultValue = "no-reply@viduc.com.sv")
     //@Mapping(target = "email" , constant = "facturacion@viduc.com.sv")
-    @Mapping(target = "activityCode" , source = "data.supplier.codeEconomicActivity" , defaultValue = "10005")
+    @Mapping(target = "activityCode" , source = "data.supplier.codeEconomicActivity" , defaultValue = "10005" , qualifiedByName = "getActivityCode")
     @Mapping(target = "activityDescription" , source = "data.supplier.descriptionEconomicActivity" , defaultValue = "Otros")
     //@Mapping(target = "activityCode" , source = "data.supplier.codeEconomicActivity" , defaultValue = "10005")
     //@Mapping(target = "activityDescription" , source = "data.supplier.descriptionEconomicActivity" , defaultValue = "Otros")
-    @Mapping(target = "address" , expression = "java(getAddress(data.getSupplier().getDepartment().getDepartmentCodeMH() , data.getSupplier().getMunicipality().getMunicipalityCodeMH() , data.getSupplier().getAddress()))")
+    //@Mapping(target = "address" , expression = "java(getAddress(data.getSupplier().getDepartment().getDepartmentCodeMH() , data.getSupplier().getMunicipality().getMunicipalityCodeMH() , data.getSupplier().getAddress()))")
+    @Mapping(target = "address" , source = "." , qualifiedByName = "getAddress")
     DteReceiverWithholdingReceiptDto toDteWithholdingReceiptDto(Sales data);
 
     @Mapping(target = "nit" , source = "data.client.nit" , qualifiedBy = {CharacterReplacer.class , CharacterReplacerNoHyphen.class})
@@ -51,11 +53,12 @@ public interface IDteReceiverMapper {
     @Mapping(target = "phoneNumber" , source = "data.client.phone" , qualifiedBy = {CharacterReplacer.class , CharacterReplacerNoHyphen.class})
     @Mapping(target = "email" , source = "data.client.email" , defaultValue = "no-reply@viduc.com.sv")
     //@Mapping(target = "email" , constant = "facturacion@viduc.com.sv")
-    @Mapping(target = "activityCode" , source = "data.client.economicActivityCode" , defaultValue = "10005")
+    @Mapping(target = "activityCode" , source = "data.client.economicActivityCode" , defaultValue = "10005" , qualifiedByName = "getActivityCode")
     @Mapping(target = "activityDescription" , source = "data.client.descriptionEconomicActivity" , defaultValue = "Otros")
     //@Mapping(target = "activityCode" , source = "data.client.economicActivityCode" , defaultValue = "10005")
     //@Mapping(target = "activityDescription" , source = "data.client.descriptionEconomicActivity" , defaultValue = "Otros")
-    @Mapping(target = "address" , expression = "java(getAddress(data.getClient().getDepartment().getDepartmentCodeMH() , data.getClient().getMunicipality().getMunicipalityCodeMH() , data.getClient().getAddress()))")
+    //@Mapping(target = "address" , expression = "java(getAddress(data.getClient().getDepartment().getDepartmentCodeMH() , data.getClient().getMunicipality().getMunicipalityCodeMH() , data.getClient().getAddress()))")
+    @Mapping(target = "address" , source = "." , qualifiedByName = "getAddress")
     DteReceiverCreditNoteDto toDteCreditNoteDto(Sales data);
 
     @Mapping(target = "nit" , source = "data.client.nit" , qualifiedBy = {CharacterReplacer.class , CharacterReplacerNoHyphen.class})
@@ -65,11 +68,12 @@ public interface IDteReceiverMapper {
     @Mapping(target = "phoneNumber" , source = "data.client.phone" , qualifiedBy = {CharacterReplacer.class , CharacterReplacerNoHyphen.class})
     //@Mapping(target = "email" , constant = "facturacion@viduc.com.sv")
     @Mapping(target = "email" , source = "data.client.email" , defaultValue = "no-reply@viduc.com.sv")
-    @Mapping(target = "activityCode" , source = "data.client.economicActivityCode" , defaultValue = "10005")
+    @Mapping(target = "activityCode" , source = "data.client.economicActivityCode" , defaultValue = "10005" , qualifiedByName = "getActivityCode")
     @Mapping(target = "activityDescription" , source = "data.client.descriptionEconomicActivity" , defaultValue = "Otros")
     //@Mapping(target = "activityCode" , source = "data.client.economicActivityCode" , defaultValue = "10005")
     //@Mapping(target = "activityDescription" , source = "data.client.descriptionEconomicActivity" , defaultValue = "Otros")
-    @Mapping(target = "address" , expression = "java(getAddress(data.getClient().getDepartment().getDepartmentCodeMH() , data.getClient().getMunicipality().getMunicipalityCodeMH() , data.getClient().getAddress()))")
+    //@Mapping(target = "address" , expression = "java(getAddress(data.getClient().getDepartment().getDepartmentCodeMH() , data.getClient().getMunicipality().getMunicipalityCodeMH() , data.getClient().getAddress()))")
+    @Mapping(target = "address" , source = "." , qualifiedByName = "getAddress")
     DteReceiverDebitNoteDto toDteDebitNoteDto(Sales data);
 
     @Mappings({
@@ -80,11 +84,12 @@ public interface IDteReceiverMapper {
             @Mapping(target = "typeIdentificationDocument" , source = "." , qualifiedByName = "getTypeIdentificationDocument"),
             @Mapping(target = "numberIdentificationDocument" , source = "." , qualifiedByName = "getDocumentNumber"),
             @Mapping(target = "nrc" , source = "data.client.nrc" , qualifiedBy = {CharacterReplacer.class , CharacterReplacerNoHyphen.class}),
-            @Mapping(target = "activityCode" , source = "data.client.economicActivityCode" , defaultValue = "10005"),
+            @Mapping(target = "activityCode" , source = "data.client.economicActivityCode" , defaultValue = "10005" , qualifiedByName = "getActivityCode"),
             @Mapping(target = "activityDescription" , source = "data.client.descriptionEconomicActivity" , defaultValue = "Otros"),
             //@Mapping(target = "activityCode" , source = "data.client.economicActivityCode" , defaultValue = "10005"),
             //@Mapping(target = "activityDescription" , source = "data.client.descriptionEconomicActivity" , defaultValue = "Otros"),
-            @Mapping(target = "address" , expression = "java(getAddress(data.getClient().getDepartment().getDepartmentCodeMH() , data.getClient().getMunicipality().getMunicipalityCodeMH() , data.getClient().getAddress()))")
+            //@Mapping(target = "address" , expression = "java(getAddress(data.getClient().getCountryCode() ,data.getClient().getDepartment().getDepartmentCodeMH() , data.getClient().getMunicipality().getMunicipalityCodeMH() , data.getClient().getAddress()))")
+            @Mapping(target = "address" , source = "." , qualifiedByName = "getAddress")
     })
     DteReceiverInvoiceSaleDto toDteInvoiceSaleDto(Sales data);
 
@@ -111,10 +116,10 @@ public interface IDteReceiverMapper {
             @Mapping(target = "phoneNumber" , source = "data.company.phoneNumber" , qualifiedBy = {CharacterReplacer.class , CharacterReplacerNoHyphen.class}),
             @Mapping(target = "email" , source = "data.company.email"),
             @Mapping(target = "typeIdentificationDocument" , constant = "36"),
-            @Mapping(target = "activityCode" , source = "data.company.economicActivityCode" , defaultValue = "10005"),
+            @Mapping(target = "activityCode" , source = "data.company.economicActivityCode" , defaultValue = "10005" , qualifiedByName = "getActivityCode"),
             @Mapping(target = "numberIdentificationDocument" , source = "data.company.nit" , qualifiedBy = {CharacterReplacer.class , CharacterReplacerNoHyphen.class}),
             @Mapping(target = "activityDescription" , source = "data.company.descriptionEconomicActivity" , defaultValue = "Otros"),
-            @Mapping(target = "address" , expression = "java(getAddress(data.getCompanyDepartment().getDepartmentCodeMH() , data.getCompanyMunicipality().getMunicipalityCodeMH() , data.getCompany().getAddress()))")
+            @Mapping(target = "address" , expression = "java(getCompanyAddress(data.getCompanyDepartment().getDepartmentCodeMH() , data.getCompanyMunicipality().getMunicipalityCodeMH() , data.getCompany().getAddress()))")
     })
     DteReceiverDeliveryNoteDto toDteDeliveryNoteDto(InventoryMovementDto data);
 
@@ -142,8 +147,48 @@ public interface IDteReceiverMapper {
 
     }
 
-    default DteAddressDto getAddress(String departmentCode , String municipalityCode , String complement) {
+    default DteAddressDto getCompanyAddress(String departmentCode , String municipalityCode , String complement) {
         return DteAddressDto.builder().departmentCode(departmentCode).municipality(municipalityCode).complement(complement).build();
     }
+
+    @Named("getActivityCode")
+    default String getActivityCode(Integer activityCode) {
+        return String.format("%05d" , activityCode);
+    }
+
+    @Named("getAddress")
+    default DteAddressDto getAddress(Sales data) {
+
+        DteAddressDto address = null;
+
+        if (data.getId().getDocumentTypeCode().equals(12) || data.getId().getDocumentTypeCode().equals(13)) {
+            if (data.getClient().getCountryCode().equals(1)) {
+
+                if (data.getClient().getAddress() != null) {
+                    address = DteAddressDto.builder().
+                            departmentCode(data.getClient().getDepartment().getDepartmentCodeMH())
+                            .municipality(data.getClient().getMunicipality().getMunicipalityCodeMH())
+                            .complement(data.getClient().getAddress()).build();
+                }
+
+            }
+        } else if (data.getId().getDocumentTypeCode().equals(20)) {
+            address = DteAddressDto.builder().
+                    departmentCode(data.getSupplier().getDepartment().getDepartmentCodeMH())
+                    .municipality(data.getSupplier().getMunicipality().getMunicipalityCodeMH())
+                    .complement(data.getSupplier().getAddress()).build();
+        } else {
+
+            address = DteAddressDto.builder().
+                    departmentCode(data.getClient().getDepartment().getDepartmentCodeMH())
+                    .municipality(data.getClient().getMunicipality().getMunicipalityCodeMH())
+                    .complement(data.getClient().getAddress()).build();
+        }
+
+        return  address;
+
+    }
+
+
 
 }

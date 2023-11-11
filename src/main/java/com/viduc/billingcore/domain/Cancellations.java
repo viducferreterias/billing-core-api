@@ -31,7 +31,7 @@ public class Cancellations implements Serializable {
     @Column(name = "numero_documento")
     private Integer documentNumber;
 
-    @Column(name = "codigo_sucursla")
+    @Column(name = "codigo_sucursal")
     private Integer pointSale;
 
     @Column(name = "fecha_emision")

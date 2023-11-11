@@ -35,14 +35,15 @@ public class DteWithholdingReceiptImpl implements IDteProcessor {
         var summary = IDteSummaryMapper.INSTANCE.toDteSummaryWithholdingReceiptDto(baseData);
 
         appendixList.add(DteAppendixDto.builder().label("Numero Documento").field("numeroDocumentoInterno").value(baseData.getPointSale().getId().toString().concat("-").concat(baseData.getId().getDocumentNumber().toString())).build());
+        appendixList.add(DteAppendixDto.builder().label(baseData.getPointSale().getPrinter()).field("1MPR1M3").value("S").build());
 
         if (baseData.getSpecialComment() != null) {
             appendixList.add(DteAppendixDto.builder().label("Observacion Especial").field("comentarioEspecial").value(baseData.getSpecialComment()).build());
         }
 
-        if (baseData.getImpression().equals(1)) {
+        /*if (baseData.getImpression().equals(1)) {
             appendixList.add(DteAppendixDto.builder().label(baseData.getPointSale().getPrinter()).field("1MPR1M3").value("S").build());
-        }
+        }*/
 
         var dte = DteSchemaWithholdingReceiptResponseDto.builder()
                 .identification(identification)

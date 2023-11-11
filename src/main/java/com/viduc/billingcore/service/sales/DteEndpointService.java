@@ -2,6 +2,7 @@ package com.viduc.billingcore.service.sales;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.viduc.billingcore.dto.request.sales.DteRequestDto;
+import com.viduc.billingcore.dto.response.DteApiProcessingResultResponseDte;
 import com.viduc.billingcore.repository.sale.DteGeneratorRepository;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
@@ -12,6 +13,7 @@ import lombok.Getter;
 
 import javax.print.attribute.standard.Media;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Path(value = "/dte")
 @RequestScoped
@@ -34,7 +36,8 @@ public class DteEndpointService {
                 .warehouseOrigin(warehouseOrigin)
                 .build();
 
-        return Response.ok().entity(dteGeneratorRepository.generate(request)).build();
+            return Response.ok().entity(dteGeneratorRepository.generate(request)).build();
+
     }
 
     @GET

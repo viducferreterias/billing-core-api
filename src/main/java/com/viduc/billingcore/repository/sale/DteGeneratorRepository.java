@@ -91,42 +91,51 @@ public class DteGeneratorRepository {
         var data = new Object();
         var dteProcessingResult = new DteApiProcessingResultResponseDte();
 
-        if (request.getWarehouseOrigin() == null) {
-            data = dteSalesBaseData(request);
-        } else {
-            data = dteInventoryBaseData(request);
+        try {
+
+            if (request.getWarehouseOrigin() == null) {
+                data = dteSalesBaseData(request);
+            } else {
+                data = dteInventoryBaseData(request);
+            }
+
+            if (request.getDocumentType().equals(2)) {
+                dte = dteProcessorFiscalCredit.generate(data , dtePaymentData(request) , dteBodySalesData(request));
+                dteProcessingResult = dteApiRepository.send(jsonMapper.writeValueAsString(dte) , RequestProcessType.DTE);
+            } else if (request.getDocumentType().equals(12) || request.getDocumentType().equals(13)) {
+                dte = dteProcessorBill.generate(data , dtePaymentData(request) , dteBodySalesData(request));
+                dteProcessingResult = dteApiRepository.send(jsonMapper.writeValueAsString(dte) , RequestProcessType.DTE);
+            } else if (request.getDocumentType().equals(17)) {
+                dte = dteProcessorExport.generate(data , dtePaymentData(request) , dteBodySalesData(request));
+                dteProcessingResult = dteApiRepository.send(jsonMapper.writeValueAsString(dte) , RequestProcessType.DTE);
+            } else if (request.getDocumentType().equals(14)) {
+                dte = dteProcessorCreditNote.generate(data , null , dteBodySalesData(request));
+                dteProcessingResult = dteApiRepository.send(jsonMapper.writeValueAsString(dte) , RequestProcessType.DTE);
+            } else if (request.getDocumentType().equals(16)) {
+                dte = dteProcessorDebitNote.generate(data , null , dteBodySalesData(request));
+                dteProcessingResult = dteApiRepository.send(jsonMapper.writeValueAsString(dte) , RequestProcessType.DTE);
+            } else if (request.getDocumentType().equals(11)) {
+                dte = dteProcessorDeliveryNote.generate(data , null , dteBodyInventoryData(request));
+                dteProcessingResult = dteApiRepository.send(jsonMapper.writeValueAsString(dte) , RequestProcessType.DTE);
+            } else if (request.getDocumentType().equals(20)) {
+                dte = dteProcessorWithholdingReceipt.generate(data , null , null);
+                dteProcessingResult = dteApiRepository.send(jsonMapper.writeValueAsString(dte) , RequestProcessType.DTE);
+            } else {
+                dte = null;
+            }
+
+            if (dteProcessingResult.getReceptionStamp() != null) {
+                stampDocument(request , dteProcessingResult , RequestProcessType.DTE);
+            }
+
+            return dteProcessingResult;
+        } catch (NullPointerException nullPointerException) {
+            nullPointerException.printStackTrace();
+            return DteApiProcessingResultResponseDte.builder().observations(List.of("Datos requeridos incompletos [ " + nullPointerException.getMessage() + " ]")).build();
+        } catch (Exception exception) {
+            return DteApiProcessingResultResponseDte.builder().observations(List.of("Error interno [ " + exception.getMessage() + " ]")).build();
         }
 
-        if (request.getDocumentType().equals(2)) {
-            dte = dteProcessorFiscalCredit.generate(data , dtePaymentData(request) , dteBodySalesData(request));
-            dteProcessingResult = dteApiRepository.send(jsonMapper.writeValueAsString(dte) , RequestProcessType.DTE);
-        } else if (request.getDocumentType().equals(12) || request.getDocumentType().equals(13)) {
-            dte = dteProcessorBill.generate(data , dtePaymentData(request) , dteBodySalesData(request));
-            dteProcessingResult = dteApiRepository.send(jsonMapper.writeValueAsString(dte) , RequestProcessType.DTE);
-        } else if (request.getDocumentType().equals(17)) {
-            dte = dteProcessorExport.generate(data , dtePaymentData(request) , dteBodySalesData(request));
-            dteProcessingResult = dteApiRepository.send(jsonMapper.writeValueAsString(dte) , RequestProcessType.DTE);
-        } else if (request.getDocumentType().equals(14)) {
-            dte = dteProcessorCreditNote.generate(data , null , dteBodySalesData(request));
-            dteProcessingResult = dteApiRepository.send(jsonMapper.writeValueAsString(dte) , RequestProcessType.DTE);
-        } else if (request.getDocumentType().equals(16)) {
-            dte = dteProcessorDebitNote.generate(data , null , dteBodySalesData(request));
-            dteProcessingResult = dteApiRepository.send(jsonMapper.writeValueAsString(dte) , RequestProcessType.DTE);
-        } else if (request.getDocumentType().equals(11)) {
-            dte = dteProcessorDeliveryNote.generate(data , null , dteBodyInventoryData(request));
-            dteProcessingResult = dteApiRepository.send(jsonMapper.writeValueAsString(dte) , RequestProcessType.DTE);
-        } else if (request.getDocumentType().equals(20)) {
-            dte = dteProcessorWithholdingReceipt.generate(data , null , null);
-            dteProcessingResult = dteApiRepository.send(jsonMapper.writeValueAsString(dte) , RequestProcessType.DTE);
-        } else {
-            dte = null;
-        }
-
-        if (dteProcessingResult.getReceptionStamp() != null) {
-            stampDocument(request , dteProcessingResult , RequestProcessType.DTE);
-        }
-
-        return dteProcessingResult;
 
     }
 
@@ -354,6 +363,8 @@ public class DteGeneratorRepository {
                     builder.equal(cancellations.get(Cancellations_.issueOn) , request.getDate()),
                     builder.equal(cancellations.get(Cancellations_.companyId) , request.getCompanyId()));
 
+            em.createQuery(criteria).executeUpdate();
+
         } else if (dteSaleCancellationDocuments.contains(request.getDocumentType()) && type.equals(RequestProcessType.INVALIDATION)) {
 
             var criteria = builder.createCriteriaUpdate(Sales.class);
@@ -368,6 +379,8 @@ public class DteGeneratorRepository {
                     builder.equal(sale.get(Sales_.id).get(SalesPrimaryKey_.documentNumber) , request.getDocumentNumber()),
                     builder.equal(sale.get(Sales_.documentDate) , request.getDate()),
                     builder.isNull(sale.get(Sales_.electronicReceiptSale)));
+
+            em.createQuery(criteria).executeUpdate();
 
         } else {
 

@@ -9,26 +9,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f447e09b-85df-46cb-93d3-5f4c8c04f5d6" name="Changes" comment="">
+    <list default="true" id="f447e09b-85df-46cb-93d3-5f4c8c04f5d6" name="Changes" comment="feat: adicion de comprobante de retencion, invalidacion de documento y tarea programada de reenvio de documentos (ccf , fac , nr , cr, fex , nc)con inconcistencias">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/domain/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/domain/Client.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/domain/PointSale.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/domain/PointSale.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/dto/response/DteApiProcessingResultResponseDte.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/dto/response/DteApiProcessingResultResponseDte.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/factory/DteProcessorFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/factory/DteProcessorFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/impl/inventory/DteDeliveryNoteImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/impl/inventory/DteDeliveryNoteImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/mapper/sale/IDteBodyMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/mapper/sale/IDteBodyMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/mapper/sale/IDteIdentificationMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/mapper/sale/IDteIdentificationMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/mapper/sale/IDtePaymentMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/mapper/sale/IDtePaymentMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/domain/Cancellations.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/domain/Cancellations.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/impl/sale/DteWithholdingReceiptImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/impl/sale/DteWithholdingReceiptImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/mapper/sale/IDteReceiverMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/mapper/sale/IDteReceiverMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/mapper/sale/IDteRelatedDocumentMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/mapper/sale/IDteRelatedDocumentMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/mapper/sale/IDteSummaryMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/mapper/sale/IDteSummaryMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/mapper/sale/IDteTransmitterMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/mapper/sale/IDteTransmitterMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/repository/configuration/DteApiRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/repository/configuration/DteApiRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/repository/sale/DteGeneratorRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/repository/sale/DteGeneratorRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/service/HelloResource.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/service/HelloResource.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/service/sales/DteEndpointService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/service/sales/DteEndpointService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/utils/enums/DocumentType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/utils/enums/DocumentType.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -150,10 +137,8 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
-      <option name="TEST_OBJECT" value="CLASS" />
-      <properties />
-      <listeners />
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -558,7 +543,13 @@
       <workItem from="1698773310826" duration="3595000" />
       <workItem from="1698813973211" duration="14059000" />
       <workItem from="1699029036315" duration="14380000" />
-      <workItem from="1699291297625" duration="3137000" />
+      <workItem from="1699291297625" duration="8773000" />
+      <workItem from="1699380577249" duration="1628000" />
+      <workItem from="1699416642027" duration="676000" />
+      <workItem from="1699459481894" duration="909000" />
+      <workItem from="1699506711764" duration="4500000" />
+      <workItem from="1699592633889" duration="1080000" />
+      <workItem from="1699633524512" duration="3484000" />
     </task>
     <task id="LOCAL-00001" summary="feat: impresion automatica en impresores remotos">
       <option name="closed" value="true" />
@@ -568,7 +559,15 @@
       <option name="project" value="LOCAL" />
       <updated>1697750666817</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="feat: adicion de comprobante de retencion, invalidacion de documento y tarea programada de reenvio de documentos (ccf , fac , nr , cr, fex , nc)con inconcistencias">
+      <option name="closed" value="true" />
+      <created>1699305749662</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1699305749662</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -587,6 +586,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="feat: impresion automatica en impresores remotos" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: impresion automatica en impresores remotos" />
+    <MESSAGE value="feat: adicion de comprobante de retencion, invalidacion de documento y tarea programada de reenvio de documentos (ccf , fac , nr , cr, fex , nc)con inconcistencias" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: adicion de comprobante de retencion, invalidacion de documento y tarea programada de reenvio de documentos (ccf , fac , nr , cr, fex , nc)con inconcistencias" />
   </component>
 </project>
