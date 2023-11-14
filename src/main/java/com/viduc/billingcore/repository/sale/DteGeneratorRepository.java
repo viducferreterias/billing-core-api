@@ -25,6 +25,9 @@ import jakarta.transaction.Transactional;
 import lombok.extern.java.Log;
 import org.hibernate.annotations.Type;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -124,16 +127,29 @@ public class DteGeneratorRepository {
                 dte = null;
             }
 
+            log.info("receipt stamp value: [" + dteProcessingResult.getReceptionStamp() + "]");
+
             if (dteProcessingResult.getReceptionStamp() != null) {
                 stampDocument(request , dteProcessingResult , RequestProcessType.DTE);
+            } else {
+                registerLog(request , dteProcessingResult);
             }
 
             return dteProcessingResult;
         } catch (NullPointerException nullPointerException) {
+
             nullPointerException.printStackTrace();
-            return DteApiProcessingResultResponseDte.builder().observations(List.of("Datos requeridos incompletos [ " + nullPointerException.getMessage() + " ]")).build();
+            var internalError = DteApiProcessingResultResponseDte.builder().observations(List.of("Datos requeridos incompletos [ " + nullPointerException.getMessage() + " ]")).build();
+            registerLog(request , internalError);
+            return internalError;
+
         } catch (Exception exception) {
-            return DteApiProcessingResultResponseDte.builder().observations(List.of("Error interno [ " + exception.getMessage() + " ]")).build();
+
+            exception.printStackTrace();
+            var internalError = DteApiProcessingResultResponseDte.builder().observations(List.of("Error interno [ " + exception.getMessage() + " ]")).build();
+            registerLog(request , internalError);
+            return internalError;
+
         }
 
 
@@ -158,6 +174,7 @@ public class DteGeneratorRepository {
                 builder.equal(invalidation.get(ElectronicBillingCancellationsView_.documentType) , request.getDocumentType()),
                 builder.equal(invalidation.get(ElectronicBillingCancellationsView_.documentNumber) , request.getDocumentNumber()),
                 builder.equal(invalidation.get(ElectronicBillingCancellationsView_.createdThe) , request.getDate()));
+
 
         var result = em.createQuery(criteria).getSingleResult();
 
@@ -328,7 +345,7 @@ public class DteGeneratorRepository {
 
     private void stampDocument(DteRequestDto request , DteApiProcessingResultResponseDte dteResult , RequestProcessType type) {
 
-        log.info("sellando documento");
+        log.info("stamp document");
 
         var builder = em.getCriteriaBuilder();
         var dteSaleDocuments = new ArrayList<>(List.of(new Integer[] {2, 12, 13 , 17 , 14 , 16 , 20}));
@@ -398,6 +415,25 @@ public class DteGeneratorRepository {
 
         }
 
+
+    }
+
+    private void registerLog(DteRequestDto request , DteApiProcessingResultResponseDte apiResult) {
+
+        var register = DteTransmissionLog.builder()
+                                        .companyId(request.getCompanyId())
+                                        .documentType(request.getDocumentType())
+                                        .branchCode(request.getPosId())
+                                        .warehouseCode(request.getWarehouseOrigin())
+                                        .documentNumber(request.getDocumentNumber())
+                                        .documentIssueDate(request.getDate())
+                                        .observationsMh(apiResult.getObservations().toString())
+                                        .descriptionConditionMh(apiResult.getMessageDescription())
+                                        .processedThe(apiResult.getProcessingDate() != null ? LocalDateTime.parse(apiResult.getProcessingDate() , DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")) : LocalDateTime.now())
+                                        .createdThe(LocalDateTime.now())
+                                        .build();
+
+        em.persist(register);
 
     }
 
