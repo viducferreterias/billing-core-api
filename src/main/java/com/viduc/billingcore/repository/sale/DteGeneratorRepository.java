@@ -129,10 +129,10 @@ public class DteGeneratorRepository {
 
             log.info("receipt stamp value: [" + dteProcessingResult.getReceptionStamp() + "]");
 
-            if (dteProcessingResult.getReceptionStamp() != null) {
-                stampDocument(request , dteProcessingResult , RequestProcessType.DTE);
-            } else {
+            if (dteProcessingResult.getReceptionStamp() == null || dteProcessingResult.getReceptionStamp().isEmpty()) {
                 registerLog(request , dteProcessingResult);
+            } else {
+                stampDocument(request , dteProcessingResult , RequestProcessType.DTE);
             }
 
             return dteProcessingResult;

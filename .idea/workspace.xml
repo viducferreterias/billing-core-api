@@ -9,9 +9,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f447e09b-85df-46cb-93d3-5f4c8c04f5d6" name="Changes" comment="feat: adicion de registro de log de errores de procesamiento de DTE">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/mapper/sale/IDteReceiverMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/mapper/sale/IDteReceiverMapper.java" afterDir="false" />
+    <list default="true" id="f447e09b-85df-46cb-93d3-5f4c8c04f5d6" name="Changes" comment="fix: asignacion de tipo de documento &quot;otros&quot; cuando el valor del atributo dui sea alfanumerico ya que se considera como pasaporte u otro tipo de documento de persona extranjera">
       <change beforePath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/repository/sale/DteGeneratorRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/repository/sale/DteGeneratorRepository.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -554,7 +552,7 @@
       <workItem from="1699977735861" duration="4188000" />
       <workItem from="1700063785115" duration="5435000" />
       <workItem from="1700151064044" duration="2573000" />
-      <workItem from="1700235735956" duration="1034000" />
+      <workItem from="1700235735956" duration="1413000" />
     </task>
     <task id="LOCAL-00001" summary="feat: impresion automatica en impresores remotos">
       <option name="closed" value="true" />
@@ -588,7 +586,15 @@
       <option name="project" value="LOCAL" />
       <updated>1699980380648</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="fix: asignacion de tipo de documento &quot;otros&quot; cuando el valor del atributo dui sea alfanumerico ya que se considera como pasaporte u otro tipo de documento de persona extranjera">
+      <option name="closed" value="true" />
+      <created>1700236949548</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1700236949548</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -610,6 +616,7 @@
     <MESSAGE value="feat: adicion de comprobante de retencion, invalidacion de documento y tarea programada de reenvio de documentos (ccf , fac , nr , cr, fex , nc)con inconcistencias" />
     <MESSAGE value="fix: correccion en mapeo de entidad de invalidaciones, mejoramiento en el manejo de respuesta de errores especificamente con NullPointerException en la generacion de DTE" />
     <MESSAGE value="feat: adicion de registro de log de errores de procesamiento de DTE" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: adicion de registro de log de errores de procesamiento de DTE" />
+    <MESSAGE value="fix: asignacion de tipo de documento &quot;otros&quot; cuando el valor del atributo dui sea alfanumerico ya que se considera como pasaporte u otro tipo de documento de persona extranjera" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: asignacion de tipo de documento &quot;otros&quot; cuando el valor del atributo dui sea alfanumerico ya que se considera como pasaporte u otro tipo de documento de persona extranjera" />
   </component>
 </project>
