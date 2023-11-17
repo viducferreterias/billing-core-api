@@ -139,7 +139,17 @@ public interface IDteReceiverMapper {
             if (data.getClient().getNit() == null && data.getClient().getDui() == null) {
                 return null;
             } else {
-                return "36";
+
+                if (data.getClient().getDui() != null && data.getClient().getNit() == null) {
+                    if (data.getClient().getDui().replace("-" , "").matches("[0-9]+") ) {
+                        return "36";
+                    } else {
+                        return "37";
+                    }
+                } else {
+                    return "36";
+                }
+
             }
         } else {
             return "37";
