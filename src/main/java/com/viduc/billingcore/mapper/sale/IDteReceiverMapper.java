@@ -99,7 +99,7 @@ public interface IDteReceiverMapper {
             @Mapping(target = "email" , source = "data.client.email" , defaultValue = "no-reply@viduc.com.sv"),
             //@Mapping(target = "email" , constant = "facturacion@viduc.com.sv"),
             @Mapping(target = "typeIdentificationDocument" , source = "." , qualifiedByName = "getTypeIdentificationDocument"),
-            @Mapping(target = "numberIdentificationDocument" , source = "data.nit" , qualifiedBy = {CharacterReplacer.class , CharacterReplacerNoHyphen.class}),
+            @Mapping(target = "numberIdentificationDocument" , source = ".",qualifiedByName = "getDocumentNumber"),
             @Mapping(target = "activityDescription" , source = "data.client.descriptionEconomicActivity" , defaultValue = "Otros"),
             //@Mapping(target = "activityDescription" , source = "data.client.descriptionEconomicActivity" , defaultValue = "Otros"),
             @Mapping(target = "countryCode" , source = "data.client.country.countryCodeMH"),
