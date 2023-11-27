@@ -38,7 +38,9 @@ public class DteExportBillImpl implements IDteProcessor {
         var receiver = IDteReceiverMapper.INSTANCE.toDteExportSaleDto(baseData);
         var summary = IDteSummaryMapper.INSTANCE.toDteSummaryExportSaleDocumentDto(baseData , payment);
 
-        appendixList.add(DteAppendixDto.builder().label("Numero Documento").field("numeroDocumentoInterno").value(baseData.getPointSale().getId().toString().concat("-").concat(baseData.getId().getDocumentNumber().toString())).build());
+        appendixList.add(DteAppendixDto.builder().label("Numero Documento").field("numeroDocumentoInterno").value(baseData.getPointSale().getId().toString().concat("-").concat(baseData.getDocumentType().getAbbreviation()).concat("-").concat(baseData.getId().getDocumentNumber().toString())).build());
+        appendixList.add(DteAppendixDto.builder().label("Cuenta Cliente").field("codigoCuentaCliente").value(baseData.getClientCode()).build());
+        appendixList.add(DteAppendixDto.builder().label("Vendedor").field("vendedor").value(baseData.getVendorCode().concat("-").concat(baseData.getSeller().getName())).build());
 
         if (baseData.getSpecialComment() != null) {
             appendixList.add(DteAppendixDto.builder().label("Observacion Especial").field("comentarioEspecial").value(baseData.getSpecialComment()).build());

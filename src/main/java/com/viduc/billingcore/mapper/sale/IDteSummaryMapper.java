@@ -29,7 +29,7 @@ public interface IDteSummaryMapper {
             @Mapping(target = "subtotal" , source = "data.electronicBillingSummary.subtotal"),
             @Mapping(target = "perceptionTax" , source = "data.electronicBillingSummary.perception"),
             @Mapping(target = "retentionTax" , source = "data.electronicBillingSummary.retention"),
-            @Mapping(target = "incomeWithholding" , source = "data.electronicBillingSummary.retention"),
+            @Mapping(target = "incomeWithholding" , constant = "0.0F"),
             @Mapping(target = "totalAmountOperation" , source = "data.electronicBillingSummary.fullOperation"),
             @Mapping(target = "totalNotTaxed" , constant = "0.0F"),
             @Mapping(target = "totalToPay" , source = "data.electronicBillingSummary.totalPayment"),
@@ -62,7 +62,7 @@ public interface IDteSummaryMapper {
             @Mapping(target = "retentionTax" , source = "data.electronicBillingSummary.retention"),
             @Mapping(target = "totalAmountOperation" , source = "data.electronicBillingSummary.fullOperation"),
             @Mapping(target = "operatingCondition" , source = "data.electronicBillingSummary.operatingCondition"),
-            @Mapping(target = "incomeWithholding" , source = "data.electronicBillingSummary.retention"),
+            @Mapping(target = "incomeWithholding" , constant = "0.0F"),
             @Mapping(target = "tributes" , expression = "java(setTribute(data.getElectronicBillingSummary().getIva()))"),
     })
     DteSummaryCreditNoteDto toDteSummaryCreditNoteDto(Sales data);
@@ -82,7 +82,7 @@ public interface IDteSummaryMapper {
             @Mapping(target = "retentionTax" , source = "data.electronicBillingSummary.retention"),
             @Mapping(target = "totalAmountOperation" , source = "data.electronicBillingSummary.fullOperation"),
             @Mapping(target = "operatingCondition" , source = "data.electronicBillingSummary.operatingCondition"),
-            @Mapping(target = "incomeWithholding" , source = "data.electronicBillingSummary.retention"),
+            @Mapping(target = "incomeWithholding" , constant = "0.0F"),
             @Mapping(target = "tributes" , expression = "java(setTribute(data.getElectronicBillingSummary().getIva()))"),
             @Mapping(target = "positiveBalance" , constant = "0.0F"),
     })
@@ -103,7 +103,7 @@ public interface IDteSummaryMapper {
             @Mapping(target = "subtotal" , source = "data.electronicBillingSummary.subtotal"),
             @Mapping(target = "perceptionTax" , source = "data.electronicBillingSummary.perception"),
             @Mapping(target = "retentionTax" , source = "data.electronicBillingSummary.retention"),
-            @Mapping(target = "incomeWithholding" , source = "data.electronicBillingSummary.retention"),
+            @Mapping(target = "incomeWithholding" , constant = "0.0F"),
             @Mapping(target = "totalAmountOperation" , source = "data.electronicBillingSummary.fullOperation"),
             @Mapping(target = "totalNotTaxed" , constant = "0.0F"),
             @Mapping(target = "totalToPay" , source = "data.electronicBillingSummary.totalPayment"),

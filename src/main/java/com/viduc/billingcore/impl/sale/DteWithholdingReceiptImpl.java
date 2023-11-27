@@ -34,7 +34,8 @@ public class DteWithholdingReceiptImpl implements IDteProcessor {
         bodyList.add(IDteBodyMapper.INSTANCE.toDteBodyWithholdingReceiptDto(baseData));
         var summary = IDteSummaryMapper.INSTANCE.toDteSummaryWithholdingReceiptDto(baseData);
 
-        appendixList.add(DteAppendixDto.builder().label("Numero Documento").field("numeroDocumentoInterno").value(baseData.getPointSale().getId().toString().concat("-").concat(baseData.getId().getDocumentNumber().toString())).build());
+        appendixList.add(DteAppendixDto.builder().label("Numero Documento").field("numeroDocumentoInterno").value(baseData.getPointSale().getId().toString().concat("-").concat(baseData.getDocumentType().getAbbreviation()).concat("-").concat(baseData.getId().getDocumentNumber().toString())).build());
+        appendixList.add(DteAppendixDto.builder().label("Cuenta Proveedor").field("cuentaProveedor").value(baseData.getSupplier().getId()).build());
         appendixList.add(DteAppendixDto.builder().label(baseData.getPointSale().getPrinter()).field("1MPR1M3").value("S").build());
 
         if (baseData.getSpecialComment() != null) {

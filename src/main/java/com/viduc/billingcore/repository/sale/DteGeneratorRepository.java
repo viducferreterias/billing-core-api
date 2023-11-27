@@ -104,38 +104,38 @@ public class DteGeneratorRepository {
 
             if (request.getDocumentType().equals(2)) {
                 dte = dteProcessorFiscalCredit.generate(data , dtePaymentData(request) , dteBodySalesData(request));
-                dteProcessingResult = dteApiRepository.send(jsonMapper.writeValueAsString(dte) , RequestProcessType.DTE);
             } else if (request.getDocumentType().equals(12) || request.getDocumentType().equals(13)) {
                 dte = dteProcessorBill.generate(data , dtePaymentData(request) , dteBodySalesData(request));
-                dteProcessingResult = dteApiRepository.send(jsonMapper.writeValueAsString(dte) , RequestProcessType.DTE);
             } else if (request.getDocumentType().equals(17)) {
                 dte = dteProcessorExport.generate(data , dtePaymentData(request) , dteBodySalesData(request));
-                dteProcessingResult = dteApiRepository.send(jsonMapper.writeValueAsString(dte) , RequestProcessType.DTE);
             } else if (request.getDocumentType().equals(14)) {
                 dte = dteProcessorCreditNote.generate(data , null , dteBodySalesData(request));
-                dteProcessingResult = dteApiRepository.send(jsonMapper.writeValueAsString(dte) , RequestProcessType.DTE);
             } else if (request.getDocumentType().equals(16)) {
                 dte = dteProcessorDebitNote.generate(data , null , dteBodySalesData(request));
-                dteProcessingResult = dteApiRepository.send(jsonMapper.writeValueAsString(dte) , RequestProcessType.DTE);
             } else if (request.getDocumentType().equals(11)) {
                 dte = dteProcessorDeliveryNote.generate(data , null , dteBodyInventoryData(request));
-                dteProcessingResult = dteApiRepository.send(jsonMapper.writeValueAsString(dte) , RequestProcessType.DTE);
             } else if (request.getDocumentType().equals(20)) {
                 dte = dteProcessorWithholdingReceipt.generate(data , null , null);
-                dteProcessingResult = dteApiRepository.send(jsonMapper.writeValueAsString(dte) , RequestProcessType.DTE);
             } else {
                 dte = null;
             }
 
-            log.info("receipt stamp value: [" + dteProcessingResult.getReceptionStamp() + "]");
+            if (dte != null) {
 
-            if (dteProcessingResult.getReceptionStamp() == null || dteProcessingResult.getReceptionStamp().isEmpty()) {
-                registerLog(request , dteProcessingResult);
-            } else {
-                stampDocument(request , dteProcessingResult , RequestProcessType.DTE);
+                dteProcessingResult = dteApiRepository.send(jsonMapper.writeValueAsString(dte) , RequestProcessType.DTE);
+
+                log.info("receipt stamp value: [" + dteProcessingResult.getReceptionStamp() + "]");
+
+                if (dteProcessingResult.getReceptionStamp() == null || dteProcessingResult.getReceptionStamp().isEmpty()) {
+                    registerLog(request , dteProcessingResult);
+                } else {
+                    stampDocument(request , dteProcessingResult , RequestProcessType.DTE);
+                }
+
             }
 
             return dteProcessingResult;
+
         } catch (NullPointerException nullPointerException) {
 
             nullPointerException.printStackTrace();
@@ -151,7 +151,6 @@ public class DteGeneratorRepository {
             return internalError;
 
         }
-
 
     }
 
@@ -187,6 +186,8 @@ public class DteGeneratorRepository {
             }
         }
 
+        dteProcessingResult = DteApiProcessingResultResponseDte.builder().messageDescription("RECIBIDO").build();
+
         return dteProcessingResult;
 
     }
@@ -203,6 +204,7 @@ public class DteGeneratorRepository {
         var pointSale = sale.fetch(Sales_.pointSale);
         var pointSaleDepartment = pointSale.fetch(PointSale_.department , JoinType.LEFT);
         var pointSaleMunicipality = pointSale.fetch(PointSale_.municipality , JoinType.LEFT);
+        var documentType = sale.fetch(Sales_.documentType , JoinType.LEFT);
 
         if (!request.getDocumentType().equals(20)) {
             var client = sale.fetch(Sales_.client);
@@ -210,6 +212,7 @@ public class DteGeneratorRepository {
             var clientMunicipality = client.fetch(Client_.municipality , JoinType.LEFT);
             var clientCountry = client.fetch(Client_.country , JoinType.LEFT);
             var electronicSummary = sale.fetch(Sales_.electronicBillingSummary  , JoinType.LEFT);
+            var seller = sale.fetch(Sales_.seller , JoinType.LEFT);
         } else {
             var supplier = sale.fetch(Sales_.supplier , JoinType.LEFT);
             var supplierCountry = supplier.fetch(Supplier_.country , JoinType.LEFT);

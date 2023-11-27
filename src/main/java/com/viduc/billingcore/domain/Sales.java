@@ -135,4 +135,14 @@ public class Sales implements Serializable {
     @ToString.Exclude
     private Supplier supplier;
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "cod_cia" , referencedColumnName = "cod_cia" , insertable = false , updatable = false)
+    @JoinColumn(name = "cod_vendedor" , referencedColumnName = "cod_vendedor" , insertable = false , updatable = false)
+    private Seller seller;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "cod_cia" , referencedColumnName = "cod_cia" , insertable = false , updatable = false)
+    @JoinColumn(name = "cod_doctoc" , referencedColumnName = "cod_doctoc" , insertable = false , updatable = false)
+    private DocumentType documentType;
+
 }

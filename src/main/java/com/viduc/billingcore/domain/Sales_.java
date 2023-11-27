@@ -1,6 +1,7 @@
 package com.viduc.billingcore.domain;
 
 import com.viduc.billingcore.domain.view.ElectronicBillingSummaryView;
+import com.viduc.billingcore.utils.enums.DocumentType;
 import jakarta.persistence.Column;
 import jakarta.persistence.metamodel.SingularAttribute;
 import jakarta.persistence.metamodel.StaticMetamodel;
@@ -46,6 +47,8 @@ public class Sales_ {
     public static volatile SingularAttribute<Sales , Integer> impression;
     public static volatile SingularAttribute<Sales , Supplier> supplier;
     public static volatile SingularAttribute<Sales , LocalDate> referenceDate;
+    public static volatile SingularAttribute<Sales , Seller> seller;
+    public static volatile SingularAttribute<Sales , DocumentType> documentType;
 
     
 }
