@@ -9,17 +9,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f447e09b-85df-46cb-93d3-5f4c8c04f5d6" name="Changes" comment="fix: asignacion de numero de documento en mapeo de facturas de exportacion">
+    <list default="true" id="f447e09b-85df-46cb-93d3-5f4c8c04f5d6" name="Changes" comment="refactor: adicion de nuevas entidades para nuevos apendices">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/domain/Cancellations.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/domain/Cancellations.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/domain/Cancellations_.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/domain/Cancellations_.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/domain/InventoryMovement.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/domain/InventoryMovement.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/domain/InventoryMovement_.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/domain/InventoryMovement_.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/domain/Sales.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/domain/Sales.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/domain/Sales_.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/domain/Sales_.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/impl/sale/DteBillImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/impl/sale/DteBillImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/impl/sale/DteCreditNoteImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/impl/sale/DteCreditNoteImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/impl/sale/DteDebitNoteImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/impl/sale/DteDebitNoteImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/impl/sale/DteExportBillImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/impl/sale/DteExportBillImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/impl/sale/DteTaxReceiptImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/impl/sale/DteTaxReceiptImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/impl/sale/DteWithholdingReceiptImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/impl/sale/DteWithholdingReceiptImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/mapper/sale/IDteSummaryMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/mapper/sale/IDteSummaryMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/dto/response/DteApiProcessingResultResponseDte.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/dto/response/DteApiProcessingResultResponseDte.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/repository/sale/DteGeneratorRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/repository/sale/DteGeneratorRepository.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -69,13 +69,14 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;developer&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.fonts.default&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
@@ -138,12 +139,6 @@
           <option name="PROGRAM_PARAMETERS" value="" />
         </SHUTDOWN>
       </ConfigurationWrapper>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
-      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -462,6 +457,13 @@
       </list>
     </recent_temporary>
   </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="jdk-11.0.21-corretto-11.0.21-3183f394aec4-585ed96d" />
+      </set>
+    </attachedChunks>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -567,7 +569,20 @@
       <workItem from="1700799526873" duration="3200000" />
       <workItem from="1700840814850" duration="6969000" />
       <workItem from="1700884541396" duration="5713000" />
-      <workItem from="1701102279920" duration="309000" />
+      <workItem from="1701102279920" duration="4013000" />
+      <workItem from="1701148091262" duration="2222000" />
+      <workItem from="1701469246800" duration="2765000" />
+      <workItem from="1701706828449" duration="6358000" />
+      <workItem from="1701792318609" duration="491000" />
+      <workItem from="1701793264378" duration="3284000" />
+      <workItem from="1701879959387" duration="3329000" />
+      <workItem from="1701894702764" duration="7937000" />
+      <workItem from="1701966530752" duration="1399000" />
+      <workItem from="1701968809838" duration="932000" />
+      <workItem from="1701970759593" duration="11000" />
+      <workItem from="1701970785892" duration="7214000" />
+      <workItem from="1702050614861" duration="4388000" />
+      <workItem from="1702141225018" duration="328000" />
     </task>
     <task id="LOCAL-00001" summary="feat: impresion automatica en impresores remotos">
       <option name="closed" value="true" />
@@ -625,7 +640,23 @@
       <option name="project" value="LOCAL" />
       <updated>1700607378950</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="refactor: adicion de nuevos apendices y simplificacion del envio de json">
+      <option name="closed" value="true" />
+      <created>1701104829297</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1701104829297</updated>
+    </task>
+    <task id="LOCAL-00009" summary="refactor: adicion de nuevas entidades para nuevos apendices">
+      <option name="closed" value="true" />
+      <created>1701105648899</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1701105648899</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -650,6 +681,8 @@
     <MESSAGE value="fix: asignacion de tipo de documento &quot;otros&quot; cuando el valor del atributo dui sea alfanumerico ya que se considera como pasaporte u otro tipo de documento de persona extranjera" />
     <MESSAGE value="fix: Asignacion de sello de recepcion y registro en log de transamision ya que en la respuesta el sello de recepcion no era null si no vacio" />
     <MESSAGE value="fix: asignacion de numero de documento en mapeo de facturas de exportacion" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix: asignacion de numero de documento en mapeo de facturas de exportacion" />
+    <MESSAGE value="refactor: adicion de nuevos apendices y simplificacion del envio de json" />
+    <MESSAGE value="refactor: adicion de nuevas entidades para nuevos apendices" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactor: adicion de nuevas entidades para nuevos apendices" />
   </component>
 </project>

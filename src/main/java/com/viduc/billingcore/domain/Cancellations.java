@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -37,6 +38,9 @@ public class Cancellations implements Serializable {
     @Column(name = "fecha_emision")
     private LocalDateTime issueOn;
 
+    @Column(name = "creado_el")
+    private LocalDateTime createThe;
+
     @Column(name = "empresa_id")
     private Integer companyId;
 
@@ -45,6 +49,9 @@ public class Cancellations implements Serializable {
 
     @Column(name = "codigo_generacion")
     private String generationCode;
+
+    @Column(name = "procesado_el")
+    private LocalDateTime processedThe;
 
     @Override
     public boolean equals(Object o) {

@@ -1,10 +1,7 @@
 package com.viduc.billingcore.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDateTime;
@@ -13,6 +10,7 @@ import java.util.List;
 @Getter
 @Setter
 @SuperBuilder
+@ToString
 @AllArgsConstructor
 @NoArgsConstructor
 public class DteApiProcessingResultResponseDte {

@@ -45,6 +45,7 @@ public class Sales_ {
     public static volatile SingularAttribute<Sales , String> providerCode;
     public static volatile SingularAttribute<Sales , String> relatedInvoiceNumber;
     public static volatile SingularAttribute<Sales , Integer> impression;
+    public static volatile SingularAttribute<Sales , LocalDateTime> processedThe;
     public static volatile SingularAttribute<Sales , Supplier> supplier;
     public static volatile SingularAttribute<Sales , LocalDate> referenceDate;
     public static volatile SingularAttribute<Sales , Seller> seller;

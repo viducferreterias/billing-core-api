@@ -68,6 +68,9 @@ public class InventoryMovement implements Serializable {
     @Column(name = "impresion")
     private Integer impression;
 
+    @Column(name = "procesado_el")
+    private LocalDateTime processingThe;
+
     @OneToOne
     @JoinColumn(name = "cod_cia" , referencedColumnName = "cod_cia" , insertable = false , updatable = false)
     private Company company;

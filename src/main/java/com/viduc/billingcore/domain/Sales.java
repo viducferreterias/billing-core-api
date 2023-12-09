@@ -108,6 +108,9 @@ public class Sales implements Serializable {
     @Column(name = "impresion")
     private Integer impression;
 
+    @Column(name = "procesado_el")
+    private LocalDateTime processedThe;
+
     @ManyToOne(fetch = FetchType.LAZY , cascade = CascadeType.ALL)
     @JoinColumn(name = "cod_cliente" , insertable = false , updatable = false)
     @ToString.Exclude

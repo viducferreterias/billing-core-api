@@ -29,6 +29,7 @@ public class InventoryMovement_ {
     public static volatile SingularAttribute<InventoryMovement ,Integer> destinationAgency;
     public static volatile SingularAttribute<InventoryMovement ,Integer> receivedBy;
     public static volatile SingularAttribute<InventoryMovement , Integer> impression;
+    public static volatile SingularAttribute<InventoryMovement , LocalDateTime> processingThe;
     public static volatile SingularAttribute<InventoryMovement ,Company> company;
     public static volatile SingularAttribute<InventoryMovement ,PointSale> pointSale;
 

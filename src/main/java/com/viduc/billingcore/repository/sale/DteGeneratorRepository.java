@@ -25,12 +25,14 @@ import jakarta.transaction.Transactional;
 import lombok.extern.java.Log;
 import org.hibernate.annotations.Type;
 
+import java.sql.Date;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalUnit;
+import java.util.*;
 
 @Log
 @Stateless
@@ -156,6 +158,8 @@ public class DteGeneratorRepository {
 
     public Object invalidateDocument(DteRequestDto request) throws Exception {
 
+        log.info( "request data: " + request.toString());
+
         var mapper = new ObjectMapper();
         var dte = new Object();
         var dteProcessingResult = new DteApiProcessingResultResponseDte();
@@ -172,7 +176,7 @@ public class DteGeneratorRepository {
         criteria.where(builder.equal(invalidation.get(ElectronicBillingCancellationsView_.branchCode) , request.getPosId()),
                 builder.equal(invalidation.get(ElectronicBillingCancellationsView_.documentType) , request.getDocumentType()),
                 builder.equal(invalidation.get(ElectronicBillingCancellationsView_.documentNumber) , request.getDocumentNumber()),
-                builder.equal(invalidation.get(ElectronicBillingCancellationsView_.createdThe) , request.getDate()));
+                builder.equal(builder.function("to_char" , String.class , invalidation.get(ElectronicBillingCancellationsView_.createdThe) , builder.literal("dd/mm/yyyy")) , request.getDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))));
 
 
         var result = em.createQuery(criteria).getSingleResult();
@@ -186,7 +190,19 @@ public class DteGeneratorRepository {
             }
         }
 
-        dteProcessingResult = DteApiProcessingResultResponseDte.builder().messageDescription("RECIBIDO").build();
+//            dteProcessingResult = DteApiProcessingResultResponseDte.builder()
+//                .generationCode(result.getGenerationCode())
+//                .receptionStamp(UUID.randomUUID().toString())
+//                .processingDate(LocalDateTime.now().toString())
+//                .messageDescription("RECIBIDO")
+//                .observations(Collections.emptyList())
+//                .build();
+
+        log.info(dteProcessingResult.toString());
+
+        if (!dteProcessingResult.getReceptionStamp().isBlank()) {
+                stampDocument(request , dteProcessingResult , RequestProcessType.INVALIDATION);
+            }
 
         return dteProcessingResult;
 
@@ -356,10 +372,12 @@ public class DteGeneratorRepository {
         var dteInventoryDocuments = new ArrayList<>(List.of(new Integer[] {11}));
 
         if (dteSaleDocuments.contains(request.getDocumentType()) && type.equals(RequestProcessType.DTE)) {
+
             var criteria = builder.createCriteriaUpdate(Sales.class);
             var sale = criteria.from(Sales.class);
 
-            criteria.set(sale.get(Sales_.electronicReceiptSale) , dteResult.getReceptionStamp());
+            criteria.set(sale.get(Sales_.electronicReceiptSale) , dteResult.getReceptionStamp())
+                    .set(sale.get(Sales_.processedThe) , LocalDateTime.parse(dteResult.getProcessingDate() , DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")));
 
             criteria.where(builder.equal(sale.get(Sales_.id).get(SalesPrimaryKey_.companyId) , request.getCompanyId()),
                     builder.equal(sale.get(Sales_.id).get(SalesPrimaryKey_.documentTypeCode) , request.getDocumentType()),
@@ -376,11 +394,12 @@ public class DteGeneratorRepository {
             var cancellations = criteria.from(Cancellations.class);
 
             criteria.set(cancellations.get(Cancellations_.receptionStamp) , dteResult.getReceptionStamp())
-                    .set(cancellations.get(Cancellations_.generationCode) , dteResult.getGenerationCode());
+                    .set(cancellations.get(Cancellations_.generationCode) , dteResult.getGenerationCode())
+                    .set(cancellations.get(Cancellations_.processedThe) , LocalDateTime.parse(dteResult.getProcessingDate() , DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")));
             criteria.where(builder.equal(cancellations.get(Cancellations_.pointSale) , request.getPosId()),
                     builder.equal(cancellations.get(Cancellations_.documentType) , request.getDocumentType()),
                     builder.equal(cancellations.get(Cancellations_.documentNumber) , request.getDocumentNumber()),
-                    builder.equal(cancellations.get(Cancellations_.issueOn) , request.getDate()),
+                    builder.equal(cancellations.get(Cancellations_.createThe) , request.getDate()),
                     builder.equal(cancellations.get(Cancellations_.companyId) , request.getCompanyId()));
 
             em.createQuery(criteria).executeUpdate();
@@ -391,7 +410,8 @@ public class DteGeneratorRepository {
             var sale = criteria.from(Sales.class);
 
             criteria.set(sale.get(Sales_.electronicReceiptSale) , dteResult.getReceptionStamp())
-                    .set(sale.get(Sales_.generationCode) , dteResult.getGenerationCode());
+                    .set(sale.get(Sales_.generationCode) , dteResult.getGenerationCode())
+                    .set(sale.get(Sales_.processedThe) , LocalDateTime.parse(dteResult.getProcessingDate() , DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")));
 
             criteria.where(builder.equal(sale.get(Sales_.id).get(SalesPrimaryKey_.companyId) , request.getCompanyId()),
                     builder.equal(sale.get(Sales_.id).get(SalesPrimaryKey_.documentTypeCode) , request.getDocumentType()),
@@ -407,7 +427,9 @@ public class DteGeneratorRepository {
             var criteria = builder.createCriteriaUpdate(InventoryMovement.class);
             var inventory = criteria.from(InventoryMovement.class);
 
-            criteria.set(inventory.get(InventoryMovement_.electronicReceiptSale) , dteResult.getReceptionStamp());
+            criteria.set(inventory.get(InventoryMovement_.electronicReceiptSale) , dteResult.getReceptionStamp())
+                    .set(inventory.get(InventoryMovement_.processingThe) , LocalDateTime.parse(dteResult.getProcessingDate() , DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")));
+
             criteria.where(builder.equal(inventory.get(InventoryMovement_.id).get(InventoryMovementPrimaryKey_.companyId) , request.getCompanyId()),
                     builder.equal(inventory.get(InventoryMovement_.id).get(InventoryMovementPrimaryKey_.number) , request.getDocumentNumber()),
                     builder.equal(inventory.get(InventoryMovement_.id).get(InventoryMovementPrimaryKey_.warehouse), request.getWarehouseOrigin()),
