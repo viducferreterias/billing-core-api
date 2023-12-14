@@ -17,6 +17,7 @@ public class ElectronicBillingCancellationsView_ {
     public static volatile SingularAttribute<ElectronicBillingCancellationsView, Integer> documentType;
     public static volatile SingularAttribute<ElectronicBillingCancellationsView, Integer> documentNumber;
     public static volatile SingularAttribute<ElectronicBillingCancellationsView, Integer> branchCode;
+    public static volatile SingularAttribute<ElectronicBillingCancellationsView , Integer> warehouseCode;
     public static volatile SingularAttribute<ElectronicBillingCancellationsView , LocalDateTime> invalidationGenerationDate;
     public static volatile SingularAttribute<ElectronicBillingCancellationsView, LocalDateTime> documentIssueDate;
     public static volatile SingularAttribute<ElectronicBillingCancellationsView, String> clientCode;

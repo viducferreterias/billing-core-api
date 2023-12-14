@@ -35,6 +35,9 @@ public class ElectronicBillingCancellationsView implements Serializable {
     @Column(name = "codigo_sucursal")
     private Integer branchCode;
 
+    @Column(name = "codigo_bodega")
+    private Integer warehouseCode;
+
     @Column(name = "fecha_emision")
     private LocalDateTime documentIssueDate;
 

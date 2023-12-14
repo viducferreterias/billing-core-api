@@ -21,6 +21,7 @@ import jakarta.persistence.Convert;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.criteria.JoinType;
+import jakarta.persistence.criteria.Predicate;
 import jakarta.transaction.Transactional;
 import lombok.extern.java.Log;
 import org.hibernate.annotations.Type;
@@ -162,6 +163,7 @@ public class DteGeneratorRepository {
 
         var mapper = new ObjectMapper();
         var dte = new Object();
+        var predicates = new ArrayList<Predicate>();
         var dteProcessingResult = new DteApiProcessingResultResponseDte();
 
         var builder = em.getCriteriaBuilder();
@@ -173,11 +175,16 @@ public class DteGeneratorRepository {
         var createdBy = invalidation.fetch(ElectronicBillingCancellationsView_.employeeCreatedBy , JoinType.LEFT);
         var company = invalidation.fetch(ElectronicBillingCancellationsView_.company);
 
-        criteria.where(builder.equal(invalidation.get(ElectronicBillingCancellationsView_.branchCode) , request.getPosId()),
-                builder.equal(invalidation.get(ElectronicBillingCancellationsView_.documentType) , request.getDocumentType()),
-                builder.equal(invalidation.get(ElectronicBillingCancellationsView_.documentNumber) , request.getDocumentNumber()),
-                builder.equal(builder.function("to_char" , String.class , invalidation.get(ElectronicBillingCancellationsView_.createdThe) , builder.literal("dd/mm/yyyy")) , request.getDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))));
+        if (request.getWarehouseOrigin() != null && request.getDocumentType().equals(11)) {
+            predicates.add(builder.equal(invalidation.get(ElectronicBillingCancellationsView_.warehouseCode) , request.getWarehouseOrigin()));
+        } else {
+            predicates.add(builder.equal(invalidation.get(ElectronicBillingCancellationsView_.branchCode) , request.getPosId()));
+        }
 
+        criteria.where(builder.equal(invalidation.get(ElectronicBillingCancellationsView_.documentType) , request.getDocumentType()),
+                builder.equal(invalidation.get(ElectronicBillingCancellationsView_.documentNumber) , request.getDocumentNumber()),
+                builder.equal(builder.function("to_char" , String.class , invalidation.get(ElectronicBillingCancellationsView_.createdThe) , builder.literal("dd/mm/yyyy")) , request.getDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))),
+                builder.and(predicates.toArray(new Predicate[0])));
 
         var result = em.createQuery(criteria).getSingleResult();
 
@@ -193,7 +200,7 @@ public class DteGeneratorRepository {
 //            dteProcessingResult = DteApiProcessingResultResponseDte.builder()
 //                .generationCode(result.getGenerationCode())
 //                .receptionStamp(UUID.randomUUID().toString())
-//                .processingDate(LocalDateTime.now().toString())
+//                .processingDate(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")).toString())
 //                .messageDescription("RECIBIDO")
 //                .observations(Collections.emptyList())
 //                .build();
@@ -202,7 +209,7 @@ public class DteGeneratorRepository {
 
         if (!dteProcessingResult.getReceptionStamp().isBlank()) {
                 stampDocument(request , dteProcessingResult , RequestProcessType.INVALIDATION);
-            }
+        }
 
         return dteProcessingResult;
 
@@ -452,7 +459,7 @@ public class DteGeneratorRepository {
                                         .warehouseCode(request.getWarehouseOrigin())
                                         .documentNumber(request.getDocumentNumber())
                                         .documentIssueDate(request.getDate())
-                                        .observationsMh(apiResult.getObservations().toString())
+                                        .observationsMh(apiResult.getObservations().toString().concat(" - ").concat(apiResult.getMessageDescription()))
                                         .descriptionConditionMh(apiResult.getMessageDescription())
                                         .processedThe(apiResult.getProcessingDate() != null ? LocalDateTime.parse(apiResult.getProcessingDate() , DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")) : LocalDateTime.now())
                                         .createdThe(LocalDateTime.now())
