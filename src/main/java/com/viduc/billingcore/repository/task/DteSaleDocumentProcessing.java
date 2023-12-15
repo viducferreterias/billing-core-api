@@ -37,7 +37,7 @@ public class DteSaleDocumentProcessing {
 
         List<Integer> documents = Arrays.asList(2,12,13,17,14,20);
 
-        criteria.where(builder.greaterThanOrEqualTo(sales.get(Sales_.documentDate) , LocalDateTime.now().toLocalDate().atStartOfDay()),
+        criteria.where(builder.greaterThanOrEqualTo(sales.get(Sales_.documentDate) , LocalDateTime.now().minusDays(5).toLocalDate().atStartOfDay()),
                 builder.isNull(sales.get(Sales_.electronicReceiptSale)),
                 builder.and(sales.get(Sales_.id).get(SalesPrimaryKey_.documentTypeCode).in(documents)));
 

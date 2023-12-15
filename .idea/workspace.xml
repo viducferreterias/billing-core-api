@@ -11,6 +11,9 @@
   <component name="ChangeListManager">
     <list default="true" id="f447e09b-85df-46cb-93d3-5f4c8c04f5d6" name="Changes" comment="refactor: adicion de nuevas entidades para nuevos apendices">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/repository/task/DteInventoryDocumentProcessing.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/repository/task/DteInventoryDocumentProcessing.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/repository/task/DteSaleDocumentProcessing.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/viduc/billingcore/repository/task/DteSaleDocumentProcessing.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -581,6 +584,7 @@
       <workItem from="1702440591940" duration="3464000" />
       <workItem from="1702488722469" duration="612000" />
       <workItem from="1702571748091" duration="1826000" />
+      <workItem from="1702661559466" duration="1269000" />
     </task>
     <task id="LOCAL-00001" summary="feat: impresion automatica en impresores remotos">
       <option name="closed" value="true" />
