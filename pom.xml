@@ -6,7 +6,7 @@
 
     <groupId>com.viduc</groupId>
     <artifactId>billing-core</artifactId>
-    <version>1.0.2</version>
+    <version>1.0.3</version>
     <name>billing-core</name>
     <packaging>war</packaging>
 

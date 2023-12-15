@@ -59,7 +59,7 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;developer&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;Cherry-picking in master&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
@@ -581,6 +581,9 @@
       <workItem from="1702440591940" duration="3464000" />
       <workItem from="1702488722469" duration="612000" />
       <workItem from="1702571748091" duration="1826000" />
+      <workItem from="1702661559466" duration="1269000" />
+      <workItem from="1702681754207" duration="49000" />
+      <workItem from="1702916560204" duration="816000" />
     </task>
     <task id="LOCAL-00001" summary="feat: impresion automatica en impresores remotos">
       <option name="closed" value="true" />
@@ -686,12 +689,13 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="master" />
+                        <option value="developer" />
                       </list>
                     </value>
                   </entry>
                 </map>
               </option>
+              <option name="LONG_EDGES_VISIBLE" value="true" />
             </State>
           </value>
         </entry>

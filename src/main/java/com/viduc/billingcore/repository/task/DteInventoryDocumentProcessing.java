@@ -36,7 +36,7 @@ public class DteInventoryDocumentProcessing {
         var criteria = builder.createQuery(InventoryMovement.class);
         var inventory = criteria.from(InventoryMovement.class);
 
-        criteria.where(builder.greaterThanOrEqualTo(inventory.get(InventoryMovement_.issuedOn) , LocalDateTime.now().toLocalDate().atStartOfDay()),
+        criteria.where(builder.greaterThanOrEqualTo(inventory.get(InventoryMovement_.issuedOn) , LocalDateTime.now().minusDays(5).toLocalDate().atStartOfDay()),
                 builder.isNull(inventory.get(InventoryMovement_.electronicReceiptSale)),
                 builder.equal(inventory.get(InventoryMovement_.id).get(InventoryMovementPrimaryKey_.type) , 11));
 
