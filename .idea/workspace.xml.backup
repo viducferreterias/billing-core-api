@@ -585,8 +585,11 @@
       <workItem from="1702488722469" duration="612000" />
       <workItem from="1702571748091" duration="1826000" />
       <workItem from="1702661559466" duration="1269000" />
+<<<<<<< HEAD
+=======
       <workItem from="1702681754207" duration="49000" />
       <workItem from="1702916560204" duration="816000" />
+>>>>>>> developer
     </task>
     <task id="LOCAL-00001" summary="feat: impresion automatica en impresores remotos">
       <option name="closed" value="true" />
