@@ -55,6 +55,12 @@ public class Supplier implements Serializable {
     @Column(name = "cod_cia")
     private Integer companyId;
 
+    @Column(name = "prov_excluido")
+    private String excludedSubject;
+
+    @Column(name = "numero_identificacion")
+    private String identificationNumber;
+
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cod_pais" , referencedColumnName = "cod_pais" , insertable = false , updatable = false)
     private Country country;

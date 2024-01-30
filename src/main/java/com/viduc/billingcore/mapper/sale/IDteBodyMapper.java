@@ -22,23 +22,67 @@ public interface IDteBodyMapper {
 
     @Mappings({
             @Mapping(target = "itemNumber" , constant = "1"),
-            @Mapping(target = "electronicDocumentType" , constant = "03"),
-            @Mapping(target = "documentNumber" , source = "data.relatedInvoiceNumber"),
-            @Mapping(target = "documentType" , expression = "java(getDocumentType(data.getRelatedInvoiceNumber()))" , nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS),
-            @Mapping(target = "issuedOn" , source = "data.referenceDate"),
+            @Mapping(target = "electronicDocumentType" , source = "." ,qualifiedByName = "getElectronicDocumentType" , nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS),
+            @Mapping(target = "documentNumber" , source = "." , qualifiedByName = "getDocumentNumber", nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS),
+            @Mapping(target = "documentType" , source = "." , qualifiedByName = "getDocumentType" , nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS),
+            @Mapping(target = "issuedOn" , source = "." , qualifiedByName = "getIssuedOn", nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS),
             @Mapping(target = "taxableAmount" , source = "data.subtotal"),
-            @Mapping(target = "mhRetentionCode" , constant = "22"),
+            @Mapping(target = "mhRetentionCode" , source = "." , qualifiedByName = "getRetentionType"),
             @Mapping(target = "withheldTax" , source = "data.perception"),
             @Mapping(target = "description" , source = "data.comment3")
     })
     DteDocumentBodyWithholdingReceiptDto toDteBodyWithholdingReceiptDto(Sales data);
 
-    default Integer getDocumentType(String documentNumber) {
-
-        if (documentNumber.length() >= 36) {
-            return 2;
+    @Named("getElectronicDocumentType")
+    default String getElectronicDocumentType(Sales data) {
+        if (data.getId().getDocumentTypeCode().equals(20) && data.getSupplier().getExcludedSubject().equals("S")) {
+            return null;
         } else {
-            return 1;
+            return "03";
+        }
+    }
+
+    @Named("getRetentionType")
+    default String getRetentionType(Sales data) {
+        if (data.getId().getDocumentTypeCode().equals(20)) {
+            if (data.getSupplier().getExcludedSubject().equals("S")) {
+                return "C4";
+            } else {
+                return "22";
+            }
+        } else {
+            return "22";
+        }
+    }
+
+    @Named("getDocumentType")
+    default Integer getDocumentType(Sales data) {
+        if (data.getId().getDocumentTypeCode().equals(20) && data.getSupplier().getExcludedSubject().equals("S")) {
+            return null;
+        } else {
+            if (data.getRelatedInvoiceNumber().length() >= 36) {
+                return 2;
+            } else {
+                return 1;
+            }
+        }
+    }
+
+    @Named("getIssuedOn")
+    default String getIssuedOn(Sales data) {
+        if (data.getId().getDocumentTypeCode().equals(20) && data.getSupplier().getExcludedSubject().equals("S")) {
+            return null;
+        } else {
+            return data.getReferenceDate().toString();
+        }
+    }
+
+    @Named("getDocumentNumber")
+    default String getDocumentNumber(Sales data) {
+        if (data.getId().getDocumentTypeCode().equals(20) && data.getSupplier().getExcludedSubject().equals("S")) {
+            return null;
+        } else {
+            return data.getRelatedInvoiceNumber();
         }
     }
 

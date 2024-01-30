@@ -22,5 +22,7 @@ public class Supplier_ {
     public static volatile SingularAttribute<Supplier , Country> country;
     public static volatile SingularAttribute<Supplier , Department> department;
     public static volatile SingularAttribute<Supplier , Municipality> municipality;
+    public static volatile SingularAttribute<Supplier , String> excludedSubject;
+    public static volatile SingularAttribute<Supplier , String> identificationNumber;
 
 }

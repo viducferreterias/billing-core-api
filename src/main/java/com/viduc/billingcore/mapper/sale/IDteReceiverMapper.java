@@ -30,8 +30,8 @@ public interface IDteReceiverMapper {
     DteReceiverTaxReceiptSaleDto toDteTaxReceiptDto(Sales data);
 
 
-    @Mapping(target = "typeIdentificationDocument" , constant = "36")
-    @Mapping(target = "numberIdentificationDocument" , source = "data.supplier.nit" , qualifiedBy = {CharacterReplacer.class , CharacterReplacerNoHyphen.class})
+    @Mapping(target = "typeIdentificationDocument" , source = "." , qualifiedByName = "getTypeIdentificationDocument")
+    @Mapping(target = "numberIdentificationDocument" , source = "." , qualifiedByName = "getDocumentNumber")
     @Mapping(target = "nrc" , source = "data.supplier.nrc" , qualifiedBy = {CharacterReplacer.class , CharacterReplacerNoHyphen.class})
     @Mapping(target = "name" , source = "data.supplier.name")
     @Mapping(target = "commercialName" , source = "data.supplier.name")
@@ -125,35 +125,55 @@ public interface IDteReceiverMapper {
 
     @Named("getDocumentNumber")
     static String getDocumentNumber(Sales data) {
-        if (data.getClient().getNit() == null)  {
-            return data.getClient().getDui() != null ? data.getClient().getDui().replace("-" , "") : null;
+        if (!data.getId().getDocumentTypeCode().equals(20)) {
+            if (data.getClient().getNit() == null)  {
+                return data.getClient().getDui() != null ? data.getClient().getDui().replace("-" , "") : null;
+            } else {
+                return data.getClient().getNit() != null ? data.getClient().getNit().replace("-" , "") : null;
+            }
         } else {
-            return data.getClient().getNit() != null ? data.getClient().getNit().replace("-" , "") : null;
+            if (data.getSupplier().getExcludedSubject().equals("S")) {
+                return data.getSupplier().getIdentificationNumber();
+            } else {
+                return data.getSupplier().getNit().replace("-" , "");
+            }
         }
+
     }
 
     @Named("getTypeIdentificationDocument")
     static String getTypeIdentificationDocument(Sales data) {
 
-        if (data.getClient().getCountryCode().equals(1)) {
-            if (data.getClient().getNit() == null && data.getClient().getDui() == null) {
-                return null;
-            } else {
+        if (!data.getId().getDocumentTypeCode().equals(20)) {
 
-                if (data.getClient().getDui() != null && data.getClient().getNit() == null) {
-                    if (data.getClient().getDui().replace("-" , "").matches("[0-9]+") ) {
-                        return "36";
-                    } else {
-                        return "37";
-                    }
+            if (data.getClient().getCountryCode().equals(1)) {
+                if (data.getClient().getNit() == null && data.getClient().getDui() == null) {
+                    return null;
                 } else {
-                    return "36";
-                }
 
+                    if (data.getClient().getDui() != null && data.getClient().getNit() == null) {
+                        if (data.getClient().getDui().replace("-" , "").matches("[0-9]+") ) {
+                            return "36";
+                        } else {
+                            return "37";
+                        }
+                    } else {
+                        return "36";
+                    }
+
+                }
+            } else {
+                return "37";
             }
         } else {
-            return "37";
+
+            if (data.getSupplier().getExcludedSubject().equals("S")) {
+                return "13";
+            } else {
+                return "36";
+            }
         }
+
 
     }
 
